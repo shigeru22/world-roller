@@ -10,16 +10,16 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
     public static GameManager Instance { get { return instance; } }
 
-    // inspector veriables
+    // inspector variables
     [Tooltip("Sets default livestocks.")] [Range(1, 10)] public int defaultLives;
     [Tooltip("Sets default timer time.")] [Range(60, 300)] public int defaultTime;
 
-    // internal variables (this class only)
-    internal int _score;
-    internal float _health;
-    internal int _lives;
-    internal float _timer;
-    internal bool timerStarted; // whether the timer is counting down
+    // private variables
+    private int _score;
+    private float _health;
+    private int _lives;
+    private float _timer;
+    private bool timerStarted; // whether the timer is counting down
 
     // score variables
     /// <summary>
@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour
     public int score
     {
         get { return _score; }
-        internal set { _score = value; }
+        private set { _score = value; }
     }
 
     // health variables
@@ -46,7 +46,7 @@ public class GameManager : MonoBehaviour
     public int lives
     {
         get { return _lives; }
-        internal set { _lives = value; }
+        private set { _lives = value; }
     }
 
     // time variables
@@ -56,15 +56,17 @@ public class GameManager : MonoBehaviour
     public float timer
     {
         get { return _timer; }
-        internal set { _timer = value; }
+        private set { _timer = value; }
     }
 
     void Awake()
     {
-        // add scene check later
-
         if (instance != null && instance != this) Destroy(gameObject);
-        else DontDestroyOnLoad(gameObject);
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
     }
 
     void Start()
