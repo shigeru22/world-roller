@@ -8,6 +8,10 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     private static GameManager instance;
+
+    /// <summary>
+    /// Public GameManager instance.
+    /// </summary>
     public static GameManager Instance { get { return instance; } }
 
     // inspector variables
@@ -20,6 +24,12 @@ public class GameManager : MonoBehaviour
     private int _lives;
     private float _timer;
     private bool timerStarted; // whether the timer is counting down
+
+    /// <summary>
+    /// Returns current playing status.
+    /// Usually used for scene checks.
+    /// </summary>
+    public bool isPlaying { get; private set; }
 
     // score variables
     /// <summary>
@@ -67,12 +77,13 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+
+        Debug.Log($"Default lives: {defaultLives}, time: {defaultTime}");
     }
 
     void Start()
     {
-        ResetHealth();
-        ResetTimer();
+        
     }
 
     void Update()
@@ -88,6 +99,12 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="target"></param>
+    public void SetPlayingStatus(bool target) { isPlaying = target; }
 
     /// <summary>
     /// Increases the score with the specified amount.
@@ -106,6 +123,7 @@ public class GameManager : MonoBehaviour
     /// <param name="amount">Amount of health to be decreased.</param>
     public void DecreaseHealth(float amount)
     {
+        Debug.Log($"Decreasing health by {amount}.");
         health -= amount;
         if (health < 0f) health = 0f;
     }
