@@ -5,6 +5,7 @@ using UnityEngine;
 public class Tilt : MonoBehaviour
 {
     [SerializeField] Transform worldObject;
+    [SerializeField] Transform ballObject;
     [SerializeField] float tiltSpeed;
 
     void Start()
@@ -18,14 +19,20 @@ public class Tilt : MonoBehaviour
             worldObject = GetComponent<Transform>();
         }
 
+        if(ballObject == null)
+        {
+            // find "ball" or "sphere" later
+        }
+
         gameObject.transform.parent = temp.transform;
+        ballObject.transform.parent = temp.transform;
 
         Vector3 angle = temp.transform.localEulerAngles;
         angle.x -= 10f;
         angle.z -= 10f;
         temp.transform.localEulerAngles = angle;
 
-        Debug.Log($"Target object rotation: {worldObject.localEulerAngles.x}, {worldObject.localEulerAngles.y}, {worldObject.localEulerAngles.z}");
+        // Debug.Log($"Target object rotation: {worldObject.localEulerAngles.x}, {worldObject.localEulerAngles.y}, {worldObject.localEulerAngles.z}");
     }
 
     void Update()
@@ -39,6 +46,6 @@ public class Tilt : MonoBehaviour
 
         worldObject.localEulerAngles = temp;
 
-        Debug.Log(temp);
+        // Debug.Log(temp);
     }
 }

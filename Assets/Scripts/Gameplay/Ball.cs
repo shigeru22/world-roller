@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class Ball : MonoBehaviour
 {
@@ -43,5 +44,21 @@ public class Ball : MonoBehaviour
     {
         fallTime = 0;
         count = true;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.gameObject.name);
+        if(other.gameObject.tag.Equals("Collectible"))
+        {
+            Collectibles temp = other.GetComponent<Collectibles>();
+            CollectibleTypes type = temp.type;
+
+            if (type == CollectibleTypes.Coin) GameManager.Instance.AddCoin();
+            else if (type == CollectibleTypes.Star) GameManager.Instance.AddStar();
+            else throw new InvalidObjectException($"{gameObject.name} triggered {other.gameObject.name} collectible");
+
+            temp.CatchObject();
+        }
     }
 }
