@@ -20,6 +20,8 @@ public class GameManager : MonoBehaviour
 
     // private variables
     private int _score;
+    private int _stars;
+    private int _coins;
     private float _health;
     private int _lives;
     private float _timer;
@@ -39,6 +41,18 @@ public class GameManager : MonoBehaviour
     {
         get { return _score; }
         private set { _score = value; }
+    }
+
+    public int stars
+    {
+        get { return _stars; }
+        private set { _stars = value; }
+    }
+
+    public int coins
+    {
+        get { return _coins; }
+        private set { _coins = value; }
     }
 
     // health variables
@@ -116,6 +130,26 @@ public class GameManager : MonoBehaviour
     /// Resets the score to 0.
     /// </summary>
     public void ResetScore() { score = 0; }
+
+    /// <summary>
+    /// Increases star count by 1.
+    /// </summary>
+    public void AddStar() { stars++; }
+
+    /// <summary>
+    /// Resets the star count to 0.
+    /// </summary>
+    public void ResetStar() { stars = 0; }
+
+    /// <summary>
+    /// Increases coin count by 1.
+    /// </summary>
+    public void AddCoin() { coins++; }
+
+    /// <summary>
+    /// Resets the coin count to 0.
+    /// </summary>
+    public void ResetCoin() { coins = 0; }
 
     /// <summary>
     /// Decreases the health with the specified amount.
