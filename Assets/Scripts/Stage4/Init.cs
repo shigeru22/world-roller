@@ -9,7 +9,7 @@ public class Init : MonoBehaviour
 
     void Start()
     {
-        force = 1000f * transform.forward;
+        force = 500f * transform.forward;
         rigid = GetComponent<Rigidbody>();
         rigid.AddForce(force);
     }
