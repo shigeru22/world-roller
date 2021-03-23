@@ -25,12 +25,13 @@ public class Tilt : MonoBehaviour
         }
 
         gameObject.transform.parent = temp.transform;
-        ballObject.transform.parent = temp.transform;
+        
 
         Vector3 angle = temp.transform.localEulerAngles;
         angle.x -= 10f;
         angle.z -= 10f;
         temp.transform.localEulerAngles = angle;
+        ballObject.transform.parent = temp.transform;
 
         // Debug.Log($"Target object rotation: {worldObject.localEulerAngles.x}, {worldObject.localEulerAngles.y}, {worldObject.localEulerAngles.z}");
     }
