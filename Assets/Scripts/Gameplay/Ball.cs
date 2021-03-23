@@ -7,6 +7,9 @@ public class Ball : MonoBehaviour
 {
     float fallTime;
     bool count;
+    public int checkpointGates;
+    int gateCrossed = 0;
+    public GameObject finalGate;
 
     void Start()
     {
@@ -26,6 +29,15 @@ public class Ball : MonoBehaviour
     void FixedUpdate()
     {
         if (count) fallTime += Time.fixedDeltaTime;
+    }
+
+    private void Update()
+    {
+        if (gateCrossed == checkpointGates)
+        {
+            Instantiate(finalGate, new Vector3 (1,1.8f,14), Quaternion.Euler(-90,0,0));
+            gateCrossed = 0;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
@@ -59,6 +71,10 @@ public class Ball : MonoBehaviour
             else throw new InvalidObjectException($"{gameObject.name} triggered {other.gameObject.name} collectible");
 
             temp.CatchObject();
+        }else if (other.gameObject.tag.Equals("Gate")){
+            Debug.Log("Gate hit");
+            other.GetComponent<BoxCollider>().enabled = false;
+            gateCrossed++;
         }
     }
 }
