@@ -14,17 +14,9 @@ public class InputManager : MonoBehaviour
     private bool _left;
     private bool _right;
 
-    public float horizontal
-    {
-        get { return _horizontal; }
-        private set { _horizontal = value; }
-    }
+    public float horizontal { get { return _horizontal; } }
 
-    public float vertical
-    {
-        get { return _vertical; }
-        private set { _vertical = value; }
-    }
+    public float vertical { get { return _vertical; } }
 
     public bool left { get { return _left; } }
     public bool right { get { return _right; } }
@@ -41,15 +33,16 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        horizontal = Input.GetAxis("Horizontal");
-        vertical = Input.GetAxis("Vertical");
+        _horizontal = Input.GetAxis("Horizontal");
+        _vertical = Input.GetAxis("Vertical");
         _left = Input.GetKeyDown(_leftRotateButton);
         _right = Input.GetKeyDown(_rightRotateButton);
     }
 
-    void LoadInputSettings()
+    public void LoadInputSettings()
     {
-
+        _leftRotateButton = UserDataManager.Instance.data.options.leftRotateButton;
+        _rightRotateButton = UserDataManager.Instance.data.options.rightRotateButton;
     }
 
     public void SetLeftRotateButton(KeyCode target) { _leftRotateButton = target; }
