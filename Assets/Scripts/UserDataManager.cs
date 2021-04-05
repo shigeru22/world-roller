@@ -9,6 +9,11 @@ public class UserDataManager : MonoBehaviour
     public static UserDataManager Instance { get { return instance; } }
 
     private SaveData _data;
+
+    /// <summary>
+    /// Currently loaded user data (read only).
+    /// Values may be changed using setter methods.
+    /// </summary>
     public SaveData data { get { return _data; } }
 
     private static readonly string dataPath = $"{Application.persistentDataPath}/userdata.json";
@@ -49,6 +54,9 @@ public class UserDataManager : MonoBehaviour
         LoadData();
     }
 
+    /// <summary>
+    /// Saves user data.
+    /// </summary>
     public void SaveData()
     {
         using (StreamWriter writer = new StreamWriter(File.Open(dataPath, FileMode.Create)))
@@ -57,6 +65,9 @@ public class UserDataManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Loads user data.
+    /// </summary>
     public void LoadData()
     {
         using (StreamReader reader = new StreamReader(File.Open(dataPath, FileMode.Open)))
@@ -65,17 +76,32 @@ public class UserDataManager : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Sets target stage's cleared status.
+    /// </summary>
+    /// <param name="stage">Target stage (from 1 to total stages)</param>
+    /// <param name="target">Status to be set.</param>
     public void SetStageClearedStatus(int stage, bool target)
     {
-        _data.stages[stage].cleared = target;
+        _data.stages[stage - 1].cleared = target;
     }
 
+    /// <summary>
+    /// Sets target stage's score.
+    /// </summary>
+    /// <param name="stage">Target stage (from 1 to total stages)</param>
+    /// <param name="score">Score to be set.</param>
     public void SetStageScore(int stage, int score)
     {
-        _data.stages[stage].score = score;
-        if (_data.stages[stage].score < 0) _data.stages[stage].score = 0;
+        _data.stages[stage - 1].score = score;
+        if (_data.stages[stage - 1].score < 0) _data.stages[stage - 1].score = 0;
     }
 
+    /// <summary>
+    /// Sets target stage's stars count.
+    /// </summary>
+    /// <param name="stage">Target stage (from 1 to total stages)</param>
+    /// <param name="stars">Number of stars to be set.</param>
     public void SetStageStars(int stage, int stars)
     {
         _data.stages[stage].stars = stars;
@@ -83,12 +109,21 @@ public class UserDataManager : MonoBehaviour
         else if (_data.stages[stage].stars < 0) _data.stages[stage].stars = 0;
     }
 
+    /// <summary>
+    /// Sets target stage's coins count.
+    /// </summary>
+    /// <param name="stage">Target stage (from 1 to total stages)</param>
+    /// <param name="coins">Number of coins to be set.</param>
     public void SetStageCoins(int stage, int coins)
     {
         _data.stages[stage].coins = coins;
         if (_data.stages[stage].coins < 0) _data.stages[stage].coins = 0;
     }
 
+    /// <summary>
+    /// Sets master volume.
+    /// </summary>
+    /// <param name="target">Target volume in decimals.</param>
     public void SetMasterVolume(float target)
     {
         _data.options.masterVolume = target;
@@ -96,6 +131,10 @@ public class UserDataManager : MonoBehaviour
         else if (_data.options.masterVolume < 0f) _data.options.masterVolume = 0f;
     }
 
+    /// <summary>
+    /// Sets BGM volume.
+    /// </summary>
+    /// <param name="target">Target volume in decimals.</param>
     public void SetBgmVolume(float target)
     {
         _data.options.bgmVolume = target;
@@ -103,6 +142,10 @@ public class UserDataManager : MonoBehaviour
         else if (_data.options.bgmVolume < 0f) _data.options.bgmVolume = 0f;
     }
 
+    /// <summary>
+    /// Sets SFX volume.
+    /// </summary>
+    /// <param name="target">Target volume in decimals.</param>
     public void SetSfxVolume(float target)
     {
         _data.options.sfxVolume = target;
