@@ -1,22 +1,13 @@
 fileFormatVersion: 2
-guid: e3be67752f937be4db5d433200ff131b
+guid: 06ce2eb5c5dbbc34386087fb15abfb1d
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -441473378386992353
-    second: WindowBackground
+      213: -3602035533644205615
+    second: Arrow
   - first:
-      213: 5022180854528585340
-    second: StageButton
-  - first:
-      213: -2357575288418885444
-    second: IconClose
-  - first:
-      213: -1705348138561622142
-    second: IconConfirm
-  - first:
-      213: 8811167218370347443
-    second: ButtonBackground
+      213: 4548364788413571689
+    second: Back
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -106,106 +97,43 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: WindowBackground
+      name: Arrow
       rect:
         serializedVersion: 2
-        x: 1
-        y: 1087
-        width: 1442
-        height: 962
+        x: 89
+        y: 7
+        width: 121
+        height: 241
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f13a3772d429fd9f0800000000000000
-      internalID: -441473378386992353
+      spriteID: 1d17dcc34cff20ec0800000000000000
+      internalID: -3602035533644205615
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: StageButton
+      name: Back
       rect:
         serializedVersion: 2
-        x: 1499
-        y: 1279
-        width: 552
-        height: 770
+        x: 258
+        y: 7
+        width: 142
+        height: 241
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: c7ea1f7e0ee52b540800000000000000
-      internalID: 5022180854528585340
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IconClose
-      rect:
-        serializedVersion: 2
-        x: 1
-        y: 943
-        width: 130
-        height: 130
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: cb0ad8224c5384fd0800000000000000
-      internalID: -2357575288418885444
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: IconConfirm
-      rect:
-        serializedVersion: 2
-        x: 145
-        y: 943
-        width: 130
-        height: 130
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 28f29ae37e26558e0800000000000000
-      internalID: -1705348138561622142
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ButtonBackground
-      rect:
-        serializedVersion: 2
-        x: 1537
-        y: 1071
-        width: 514
-        height: 194
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3b1088bc6ed874a70800000000000000
-      internalID: 8811167218370347443
+      spriteID: 96229424da90f1f30800000000000000
+      internalID: 4548364788413571689
       vertices: []
       indices: 
       edges: []
@@ -213,7 +141,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: 553ce5fb0e9f85140b9c26a5f9ca22b1
+    spriteID: 49573b67a7dcece4ea6a9af57ba300ca
     internalID: 0
     vertices: []
     indices: 
