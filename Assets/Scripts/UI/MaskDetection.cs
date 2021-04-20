@@ -41,7 +41,7 @@ public class MaskDetection : MonoBehaviour
                 else if (current.Equals(MainMenuTypes.Options)) this.target = optionsWindow;
                 else if (current.Equals(MainMenuTypes.Credits)) this.target = creditsWindow;
                 current = MainMenuTypes.Main;
-                Debug.Log(this.target.gameObject.name);
+                // Debug.Log(this.target.gameObject.name);
             }
             else Debug.LogError("Can't open other section while this section is still open.");
         }
