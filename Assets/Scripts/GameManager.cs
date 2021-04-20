@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
     private int _lives;
     private float _timer;
     private int _rotation;
+    private bool _hyperspeedMode;
     private bool _timerStarted; // whether the timer is counting down
 
     /// <summary>
@@ -33,6 +34,11 @@ public class GameManager : MonoBehaviour
     /// Usually used for scene checks.
     /// </summary>
     public bool isPlaying { get; private set; }
+
+    /// <summary>
+    /// Returns whether user selects hyperspeed mode.
+    /// </summary>
+    public bool hyperspeedMode { get { return _hyperspeedMode; } }
 
     // score variables
     /// <summary>
@@ -105,6 +111,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="target">Whether currently is playing.</param>
     public void SetPlayingStatus(bool target) { isPlaying = target; }
+
+    /// <summary>
+    /// Sets hyperspeed mode status.
+    /// </summary>
+    /// <param name="target"></param>
+    public void SetHyperspeedMode(bool target) { _hyperspeedMode = target; }
 
     /// <summary>
     /// Rotates world (or camera perspective).
