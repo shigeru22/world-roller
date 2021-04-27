@@ -26,13 +26,25 @@ public class GameManager : MonoBehaviour
     private int _lives;
     private float _timer;
     private int _rotation;
+    private bool _hyperspeedMode;
     private bool _timerStarted; // whether the timer is counting down
+    private bool _invulnUnlock; //powerup unlock
+    private bool _invulnerabilityMode; //invulnmode
+    private float _mass; //player ball mass
+    private bool _magnetUnlock; //powerup unlock
+    private bool _magnetOn; //coin magnet powerup
+    private float _coinMagnetLevel; //coin magnet powerup
 
     /// <summary>
     /// Returns current playing status.
     /// Usually used for scene checks.
     /// </summary>
     public bool isPlaying { get; private set; }
+
+    /// <summary>
+    /// Returns whether user selects hyperspeed mode.
+    /// </summary>
+    public bool hyperspeedMode { get { return _hyperspeedMode; } }
 
     // score variables
     /// <summary>
@@ -68,6 +80,39 @@ public class GameManager : MonoBehaviour
 
     // world specific
     public float worldRotation { get { return _rotation * 90f; } }
+
+    /// <summary>
+    /// Checks whether or not invulnerability mode is unlocked.
+    /// </summary>
+    public bool isInvulnUnlocked { get { return _invulnUnlock; } }
+
+    /// <summary>
+    /// Returns current invunerability status.
+    /// Checks whether or not player is in invulnerability mode.
+    /// </summary>
+    public bool isInvuln { get { return _invulnerabilityMode; } }
+
+    /// <summary>
+    /// Returns current mass of the ball.
+    /// </summary>
+    public float mass { get { return _mass; } }
+
+    /// <summary>
+    /// Returns current invunerability status.
+    /// Checks whether or not coin magnet mode is unlocked.
+    /// </summary>
+    public bool isMagnetUnlock { get { return _magnetUnlock; } }
+
+    /// <summary>
+    /// Returns current coin magnet status.
+    /// Checks whether or not player is in coin magnet mode.
+    /// </summary>
+    public bool isMagnet { get { return _magnetOn; } }
+
+    /// <summary>
+    /// Returns current coin magnet level.
+    /// </summary>
+    public float magnet { get { return _coinMagnetLevel; } }
 
     void Awake()
     {
@@ -105,6 +150,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="target">Whether currently is playing.</param>
     public void SetPlayingStatus(bool target) { isPlaying = target; }
+
+    /// <summary>
+    /// Sets hyperspeed mode status.
+    /// </summary>
+    /// <param name="target"></param>
+    public void SetHyperspeedMode(bool target) { _hyperspeedMode = target; }
 
     /// <summary>
     /// Rotates world (or camera perspective).
@@ -227,4 +278,41 @@ public class GameManager : MonoBehaviour
         _timerStarted = false;
         _timer = defaultTime;
     }
+
+    /// <summary>
+    /// Unlocks invulnerability mode for player.
+    /// </summary>
+    public void invulnUnlock() { _invulnUnlock = true; }
+
+    /// <summary>
+    /// Manages the gameplay activation of invulnerability mode.
+    /// </summary>
+    public void invulnManager(bool on) { 
+        if(on == true) _invulnerabilityMode = true; 
+        else if(on == false) _invulnerabilityMode = false;
+    }
+
+    /// <summary>
+    /// Sets ball mass.
+    /// </summary>
+    public void setMass(float mass) { _mass = mass; }
+
+    /// <summary>
+    /// Unlocks coin magnet mode for player.
+    /// </summary>
+    public void magnetUnlock() { _magnetUnlock = true; }
+
+    /// <summary>
+    /// Manages the gameplay activation of coin magnet mode.
+    /// </summary>
+    public void magnetManaget(bool on)
+    {
+        if (on == true) _magnetOn = true;
+        else if (on == false) _magnetOn = false;
+    }
+
+    /// <summary>
+    /// Sets the coin magnet level.
+    /// </summary>
+    public void setMagnetLevel(int level) { _coinMagnetLevel = level; }
 }

@@ -66,8 +66,6 @@ public class CameraScript : MonoBehaviour
                 warned = true;
             }
         }
-
-        // TODO: add rotation if Q or E is pressed (and lerp it)
     }
 
     void MoveCamera()
