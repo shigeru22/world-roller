@@ -8,8 +8,7 @@ public class Pause : MonoBehaviour
 
     void Update()
     {
-        // TODO: Change keycode from user data
-        if(Input.GetKeyDown(KeyCode.Escape))
+        if(InputManager.Instance.pause)
         {
             if(!paused)
             {
@@ -20,7 +19,7 @@ public class Pause : MonoBehaviour
             else
             {
                 paused = false;
-                GameManager.Instance.StartGameplay();
+                GameManager.Instance.ResumeGameplay();
                 // hide pause menu
             }
         }

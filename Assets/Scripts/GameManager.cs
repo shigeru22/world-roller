@@ -285,10 +285,16 @@ public class GameManager : MonoBehaviour
         isPlaying = true;
     }
 
+    public void ResumeGameplay()
+    {
+        StartTimer();
+        Time.timeScale = 1f;
+    }
+
     public void PauseGameplay()
     {
         StopTimer();
-        isPlaying = false;
+        Time.timeScale = 0f;
     }
 
     /// <summary>

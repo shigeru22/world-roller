@@ -16,11 +16,12 @@ public class UserDataManager : MonoBehaviour
     /// </summary>
     public SaveData data { get { return _data; } }
 
-    private static readonly string dataPath = $"{Application.persistentDataPath}/userdata.json";
+    private static string dataPath;
 
     void Awake()
     {
-        Debug.Log(Application.persistentDataPath);
+        dataPath = $"{Application.persistentDataPath}/userdata.json";
+
         if (instance != null && instance != this) Destroy(gameObject);
         else
         {
@@ -56,6 +57,12 @@ public class UserDataManager : MonoBehaviour
         LoadData();
     }
 
+    IEnumerator Start()
+    {
+        yield return new WaitUntil(() => InputManager.Instance != null);
+        InputManager.Instance.LoadInputSettings();
+    }
+
     /// <summary>
     /// Saves user data.
     /// </summary>
@@ -74,7 +81,7 @@ public class UserDataManager : MonoBehaviour
     {
         using (StreamReader reader = new StreamReader(File.Open(dataPath, FileMode.Open)))
         {
-            _data = JsonUtility.FromJson<SaveData>(reader.ReadLine());
+            _data = JsonUtility.FromJson<SaveData>(reader.ReadToEnd());
         }
     }
 

@@ -25,10 +25,12 @@ public class StageSelectButton : MonoBehaviour
             else if (type.Equals(StageSelectButtonTypes.Previous))
             {
                 // animate left
+                MainMenuManager.Instance.StageLeft();
             }
             else if (type.Equals(StageSelectButtonTypes.Next))
             {
                 // animate right
+                MainMenuManager.Instance.StageRight();
             }
             else if (type.Equals(StageSelectButtonTypes.Stage))
             {
@@ -37,6 +39,7 @@ public class StageSelectButton : MonoBehaviour
             else if (type.Equals(StageSelectButtonTypes.OK))
             {
                 // start
+                MainMenuManager.Instance.StartStage();
             }
             else Debug.LogError("Unknown button type.");
         }
