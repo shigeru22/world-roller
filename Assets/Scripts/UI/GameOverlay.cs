@@ -33,14 +33,12 @@ public class GameOverlay : MonoBehaviour
 
     void Update()
     {
-        /*
         int seconds = (int)Mathf.Floor(GameManager.Instance.timer);
         int miliseconds = (int)Mathf.Floor((GameManager.Instance.timer * 10f) % 10f);
 
         timeSeconds.text = seconds.ToString();
         miliSeconds.text = miliseconds.ToString();
-        coinCounter.text = coinCounter.ToString();
-        starCounter.text = starCounter.ToString();
-        */
+        coinCounter.text = GameManager.Instance.coins.ToString();
+        starCounter.text = GameManager.Instance.stars.ToString();
     }
 }
