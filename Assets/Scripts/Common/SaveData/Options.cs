@@ -25,7 +25,12 @@ public struct Options
     public KeyCode leftRotateButton;
 
     /// <summary>
-    /// Rotate Right Button.
+    /// Rotate Right button.
     /// </summary>
     public KeyCode rightRotateButton;
+
+    /// <summary>
+    /// Pause button.
+    /// </summary>
+    public KeyCode pauseButton;
 }

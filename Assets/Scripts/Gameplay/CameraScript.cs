@@ -66,6 +66,7 @@ public class CameraScript : MonoBehaviour
                 */
 
                 // test
+                // TODO: Change keycodes from user data
                 if (Input.GetKeyDown(KeyCode.Q)) GameManager.Instance.RotateWorld(RotationTargets.Left);
                 else if (Input.GetKeyDown(KeyCode.E)) GameManager.Instance.RotateWorld(RotationTargets.Right);
                 currentRotation = Quaternion.Slerp(currentRotation, Quaternion.Euler(Vector3.up * GameManager.Instance.worldRotation), 0.05f);

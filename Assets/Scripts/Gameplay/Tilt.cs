@@ -8,6 +8,8 @@ public class Tilt : MonoBehaviour
 
     void Update()
     {
+        if (!GameManager.Instance.isPlaying) return;
+        
         float horizontal, vertical;
         int rotation = (int)Mathf.Abs(GameManager.Instance.worldRotation / 90f % 4f);
 

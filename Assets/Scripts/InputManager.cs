@@ -9,10 +9,12 @@ public class InputManager : MonoBehaviour
 
     private KeyCode _leftRotateButton;
     private KeyCode _rightRotateButton;
+    private KeyCode _pauseButton;
     private float _horizontal;
     private float _vertical;
     private bool _left;
     private bool _right;
+    private bool _pause;
 
     /// <summary>
     /// Horizontal input axis.
@@ -34,6 +36,11 @@ public class InputManager : MonoBehaviour
     /// </summary>
     public bool right { get { return _right; } }
 
+    /// <summary>
+    /// Whether pause button is pressed.
+    /// </summary>
+    public bool pause { get { return _pause; } }
+
     void Awake()
     {
         if (instance != null && instance != this) Destroy(gameObject);
@@ -50,6 +57,7 @@ public class InputManager : MonoBehaviour
         _vertical = Input.GetAxis("Vertical");
         _left = Input.GetKeyDown(_leftRotateButton);
         _right = Input.GetKeyDown(_rightRotateButton);
+        _pause = Input.GetKeyDown(_pauseButton);
     }
 
     /// <summary>
@@ -60,6 +68,7 @@ public class InputManager : MonoBehaviour
     {
         _leftRotateButton = UserDataManager.Instance.data.options.leftRotateButton;
         _rightRotateButton = UserDataManager.Instance.data.options.rightRotateButton;
+        _pauseButton = UserDataManager.Instance.data.options.pauseButton;
     }
 
     /// <summary>
@@ -73,4 +82,10 @@ public class InputManager : MonoBehaviour
     /// </summary>
     /// <param name="target">Right rotate button keycode from user's data.</param>
     public void SetRightRotateButton(KeyCode target) { _rightRotateButton = target; }
+
+    /// <summary>
+    /// Sets the pause button.
+    /// </summary>
+    /// <param name="target">Pause button keycode from user's data.</param>
+    public void SetPauseButton(KeyCode target) { _pauseButton = target; }
 }

@@ -20,6 +20,7 @@ public class UserDataManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log(Application.persistentDataPath);
         if (instance != null && instance != this) Destroy(gameObject);
         else
         {
@@ -46,6 +47,7 @@ public class UserDataManager : MonoBehaviour
             _data.options.sfxVolume = 1f;
             _data.options.leftRotateButton = KeyCode.Q;
             _data.options.rightRotateButton = KeyCode.E;
+            _data.options.pauseButton = KeyCode.Escape;
 
             SaveData();
         }
