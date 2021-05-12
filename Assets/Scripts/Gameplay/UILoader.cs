@@ -9,6 +9,6 @@ public class UILoader : MonoBehaviour
 
     void Start()
     {
-        if (!UISceneName.Equals(string.Empty)) SceneManager.LoadSceneAsync(UISceneName, LoadSceneMode.Additive);
+        if (!UISceneName.Equals(string.Empty)) SceneSwitcher.AddScene(Scenes.GameOverlay);
     }
 }

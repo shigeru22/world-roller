@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -10,9 +11,13 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Animator menuAnimator;
     public MaskDetection canvasDetector;
 
+    // TODO: Add more stages when done
+    [SerializeField] Button[] stages;
+    
     bool isBlocked;
     float timer;
     float duration;
+    int selectedStage;
 
     public bool isSelectingEnabled
     {
@@ -25,12 +30,15 @@ public class MainMenuManager : MonoBehaviour
 
     void Awake()
     {
+        if (stages.Length == 0) Debug.LogError("No stages specified. Add them in the inspector.");
+        
         if (instance != null && instance != this) Destroy(gameObject);
         else instance = this;
     }
 
     void Start()
     {
+        selectedStage = 0;
         RunAnimation(string.Empty, 2f);
     }
 
@@ -47,6 +55,19 @@ public class MainMenuManager : MonoBehaviour
         }
     }
 
+    void SelectStage(int target)
+    {
+        if (target > 0)
+        {
+            if (selectedStage < stages.Length - 1) selectedStage++;
+        }
+        else if (target < 0)
+        {
+            if (selectedStage > 0) selectedStage--;
+        }
+        else Debug.LogWarning("What are you doing?");
+    }
+
     public void RunAnimation(string animation, float pauseButtonDuration)
     {
         if(!animation.Equals(string.Empty)) menuAnimator.SetTrigger(animation);
@@ -58,5 +79,21 @@ public class MainMenuManager : MonoBehaviour
         this.duration = duration;
         timer = 0f;
         isBlocked = true;
+    }
+
+    public void StageRight()
+    {
+        SelectStage(1);
+    }
+
+    public void StageLeft()
+    {
+        SelectStage(-1);
+    }
+
+    public void StartStage()
+    {
+        // selected starts from 0, and the enum stages are from 1 to 4
+        SceneSwitcher.SwitchScene((Scenes)(selectedStage + 1));
     }
 }
