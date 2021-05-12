@@ -279,6 +279,18 @@ public class GameManager : MonoBehaviour
         _timer = defaultTime;
     }
 
+    public void StartGameplay()
+    {
+        StartTimer();
+        isPlaying = true;
+    }
+
+    public void PauseGameplay()
+    {
+        StopTimer();
+        isPlaying = false;
+    }
+
     /// <summary>
     /// Unlocks invulnerability mode for player.
     /// </summary>
