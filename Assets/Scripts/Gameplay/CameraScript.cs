@@ -83,6 +83,8 @@ public class CameraScript : MonoBehaviour
                 Debug.LogError("Target is not specified.");
                 warned = true;
             }
+
+            raycast();
         }
     }
 
@@ -100,5 +102,20 @@ public class CameraScript : MonoBehaviour
         temp.z += currentPosition.z;
         // Debug.Log(temp);
         transform.localPosition = temp;
+    }
+
+    void raycast()
+    {
+        float raylength = 3f;
+
+        RaycastHit hit;
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        //Debug.DrawRay(ray.origin, ray.direction * raylength, Color.red);
+
+        //It just works.
+        if (Physics.Raycast(ray, out hit, raylength))
+        {
+            this.transform.Translate(Vector3.forward*4, Space.Self);
+        }
     }
 }

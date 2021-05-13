@@ -69,6 +69,9 @@ public class InputManager : MonoBehaviour
         _leftRotateButton = UserDataManager.Instance.data.options.leftRotateButton;
         _rightRotateButton = UserDataManager.Instance.data.options.rightRotateButton;
         _pauseButton = UserDataManager.Instance.data.options.pauseButton;
+
+        Debug.Log("Left" + _leftRotateButton);
+        Debug.Log("Right" + _rightRotateButton);
     }
 
     /// <summary>
