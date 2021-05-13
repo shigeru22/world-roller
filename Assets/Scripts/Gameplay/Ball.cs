@@ -38,6 +38,20 @@ public class Ball : MonoBehaviour
             Instantiate(finalGate, new Vector3 (1,1.8f,14), Quaternion.Euler(-90,0,0));
             gateCrossed = 0;
         }
+
+        int layerMask = 1 << 6;
+
+        layerMask = ~layerMask;
+
+        Debug.DrawRay(transform.position, -Vector3.up* 100f, Color.red, 2f);
+        if (Physics.Raycast(transform.position + new Vector3(0,5f,0), -Vector3.up, 100f, layerMask))
+        {
+            //Debug.Log("Did Hit");
+        }
+        else
+        {
+            Debug.LogError("Did not Hit");
+        }
     }
 
     void OnCollisionEnter(Collision collision)
