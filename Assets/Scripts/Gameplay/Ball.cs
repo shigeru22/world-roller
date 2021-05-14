@@ -10,6 +10,11 @@ public class Ball : MonoBehaviour
     public int checkpointGates;
     int gateCrossed = 0;
     public GameObject finalGate;
+    public GameObject spawnPoint;
+
+    CapsuleCollider coincollector;
+    Rigidbody rigid;
+    float delay = 0.0f;
 
     void Start()
     {
@@ -24,6 +29,37 @@ public class Ball : MonoBehaviour
         }
         GameManager.Instance.ResetTimer();
         Debug.Log($"Health: {GameManager.Instance.health}, Lives: {GameManager.Instance.lives}");
+
+
+        //set coin magnet
+        rigid = this.GetComponent<Rigidbody>();
+        coincollector = this.GetComponent<CapsuleCollider>();
+        if (GameManager.Instance.getMagnetLevel() == 0)
+        {
+            coincollector.radius = 1f;
+        }else if (GameManager.Instance.getMagnetLevel() == 1)
+        {
+            coincollector.radius = 2.5f;
+        }else if (GameManager.Instance.getMagnetLevel() == 2)
+        {
+            coincollector.radius = 4.5f;
+        }else if (GameManager.Instance.getMagnetLevel() == 3)
+        {
+            coincollector.radius = 7f;
+        }
+
+        //todo : change isInvuln to isZen
+        //set zenmode
+        if (GameManager.Instance.isInvuln)
+        {
+            GameManager.Instance.StopTimer();
+        }
+
+        //Set hyperspeedmode
+        if (GameManager.Instance.hyperspeedMode)
+        {
+            Time.timeScale = 2f;
+        }
     }
 
     void FixedUpdate()
@@ -43,13 +79,20 @@ public class Ball : MonoBehaviour
 
         layerMask = ~layerMask;
 
-        //Debug.DrawRay(transform.position, -Vector3.up* 100f, Color.red, 2f);
-        if (Physics.Raycast(transform.position + new Vector3(0,5f,0), -Vector3.up, 100f, layerMask))
+        Debug.DrawRay(transform.position, -Vector3.up* 100f, Color.red);
+        if (Physics.Raycast(transform.position + new Vector3(0,10f,0), -Vector3.up, 1000f, layerMask))
         {
+            delay = 0;
             //Debug.Log("Did Hit");
         }
         else
         {
+            delay += Time.deltaTime;
+            if(delay > 2f)
+            {
+                this.transform.position = spawnPoint.transform.position;
+                rigid.velocity = new Vector3(0, 0, 0);
+            }
             Debug.LogError("Did not Hit");
         }
     }
