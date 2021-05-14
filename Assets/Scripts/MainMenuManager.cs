@@ -9,6 +9,7 @@ public class MainMenuManager : MonoBehaviour
     public static MainMenuManager Instance { get { return instance; } }
 
     [SerializeField] Animator menuAnimator;
+    [SerializeField] Animator powerupAnimator;
     public MaskDetection canvasDetector;
 
     // TODO: Add more stages when done
@@ -79,6 +80,11 @@ public class MainMenuManager : MonoBehaviour
         this.duration = duration;
         timer = 0f;
         isBlocked = true;
+    }
+
+    public void TogglePowerup()
+    {
+        powerupAnimator.SetTrigger("Open");
     }
 
     public void StageRight()
