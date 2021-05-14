@@ -20,6 +20,7 @@ public class CameraScript : MonoBehaviour
 
     bool isWall = false;
     float t = 0.0f;
+    float delay = 0.0f;
     Vector3 tempPosCam;
     Vector3 tempPosBall;
 
@@ -133,14 +134,23 @@ public class CameraScript : MonoBehaviour
         if (Physics.Raycast(ray, out hit, raylength) && isWall == false)
         //if (Physics.Raycast(this.transform.position, target.position, 3f))
         {
-            isWall = true;
-            t = 0.0f;
-            tempPosCam = this.transform.localPosition;
-            tempPosBall = (tempPosCam + target.position)/2;
+            delay += Time.deltaTime;
+            if (delay > 0.2f)
+            {
+                isWall = true;
+                t = 0.0f;
+                tempPosCam = this.transform.localPosition;
+                tempPosBall = (tempPosCam + target.position) / 2;
+            }
 
             //this.transform.LookAt(target);
             //this.transform.Translate(Vector3.forward * 4, Space.Self);
         }
+        else
+        {
+            delay = 0;
+        }
+
         if (isWall)
         {
             this.transform.LookAt(target);

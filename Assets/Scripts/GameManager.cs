@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
     private float _mass; //player ball mass
     private bool _magnetUnlock; //powerup unlock
     private bool _magnetOn; //coin magnet powerup
-    private float _coinMagnetLevel; //coin magnet powerup
+    private int _coinMagnetLevel; //coin magnet powerup
 
     /// <summary>
     /// Returns current playing status.
@@ -81,6 +81,8 @@ public class GameManager : MonoBehaviour
     // world specific
     public float worldRotation { get { return _rotation * 90f; } }
 
+
+    //todo : change isInvuln to isZen
     /// <summary>
     /// Checks whether or not invulnerability mode is unlocked.
     /// </summary>
@@ -333,4 +335,9 @@ public class GameManager : MonoBehaviour
     /// Sets the coin magnet level.
     /// </summary>
     public void setMagnetLevel(int level) { _coinMagnetLevel = level; }
+
+    /// <summary>
+    /// Gets the coin magnet level.
+    /// </summary>
+    public int getMagnetLevel() { return _coinMagnetLevel; }
 }
