@@ -10,30 +10,31 @@ public class Tilt : MonoBehaviour
     {
         if (!GameManager.Instance.isPlaying) return;
         
-        float horizontal, vertical;
+        float horizontal, vertical, tilt;
         int rotation = (int)Mathf.Abs(GameManager.Instance.worldRotation / 90f % 4f);
+        if (InputManager.Instance.damp) tilt = 40f;
+        else tilt = 20f;
 
         if(rotation == 1)
         {
-            Debug.Log("enter");
-            horizontal = InputManager.Instance.vertical * 20f;
-            vertical = InputManager.Instance.horizontal * 20f;
+            horizontal = InputManager.Instance.vertical * tilt;
+            vertical = InputManager.Instance.horizontal * tilt;
         }
         else if(rotation == 2)
         {
-            horizontal = InputManager.Instance.horizontal * 20f;
-            vertical = -InputManager.Instance.vertical * 20f;
+            horizontal = InputManager.Instance.horizontal * tilt;
+            vertical = -InputManager.Instance.vertical * tilt;
         }
         else if(rotation == 3)
         {
             // 90
-            horizontal = -InputManager.Instance.vertical * 20f;
-            vertical = -InputManager.Instance.horizontal * 20f;
+            horizontal = -InputManager.Instance.vertical * tilt;
+            vertical = -InputManager.Instance.horizontal * tilt;
         }
         else
         {
-            horizontal = -InputManager.Instance.horizontal * 20f;
-            vertical = InputManager.Instance.vertical * 20f;
+            horizontal = -InputManager.Instance.horizontal * tilt;
+            vertical = InputManager.Instance.vertical * tilt;
         }
 
         Quaternion target = Quaternion.Euler(vertical, 0, horizontal);

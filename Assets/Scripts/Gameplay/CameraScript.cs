@@ -70,13 +70,23 @@ public class CameraScript : MonoBehaviour
                 else if (InputManager.Instance.right) GameManager.Instance.RotateWorld(RotationTargets.Right);
                 currentRotation = Quaternion.Slerp(currentRotation, Quaternion.Euler(Vector3.up * GameManager.Instance.worldRotation), 0.05f);
                 pivot.transform.rotation = currentRotation;
-
-                // rotate
                 Vector3 temp = currentRotation.eulerAngles;
                 temp.x += rotation.x;
                 temp.y += rotation.y;
                 temp.z += rotation.z;
-                pivot.transform.rotation = Quaternion.Euler(temp);
+                if (InputManager.Instance.damp)
+                {
+                    if (InputManager.Instance.vertical > 0f)
+                    {
+                        temp.x += 45f;
+                    }
+                    else if (InputManager.Instance.vertical < 0f)
+                    {
+                        temp.x -= 45f;
+                    }
+                }
+                currentRotation = Quaternion.Slerp(currentRotation, Quaternion.Euler(temp), 0.05f);
+                pivot.transform.rotation = currentRotation;
             }
             else if (!warned)
             {
