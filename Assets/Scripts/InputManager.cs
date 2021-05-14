@@ -9,9 +9,11 @@ public class InputManager : MonoBehaviour
 
     private KeyCode _leftRotateButton;
     private KeyCode _rightRotateButton;
+    private KeyCode _dampButton;
     private KeyCode _pauseButton;
     private float _horizontal;
     private float _vertical;
+    private bool _damp;
     private bool _left;
     private bool _right;
     private bool _pause;
@@ -25,6 +27,11 @@ public class InputManager : MonoBehaviour
     /// Vertical input axis.
     /// </summary>
     public float vertical { get { return _vertical; } }
+
+    /// <summary>
+    /// Whether damp tilting button is pressed.
+    /// </summary>
+    public bool damp { get { return _damp; } }
 
     /// <summary>
     /// Whether rotate left button is pressed.
@@ -55,6 +62,7 @@ public class InputManager : MonoBehaviour
     {
         _horizontal = Input.GetAxis("Horizontal");
         _vertical = Input.GetAxis("Vertical");
+        _damp = Input.GetKey(_dampButton);
         _left = Input.GetKeyDown(_leftRotateButton);
         _right = Input.GetKeyDown(_rightRotateButton);
         _pause = Input.GetKeyDown(_pauseButton);
@@ -68,10 +76,8 @@ public class InputManager : MonoBehaviour
     {
         _leftRotateButton = UserDataManager.Instance.data.options.leftRotateButton;
         _rightRotateButton = UserDataManager.Instance.data.options.rightRotateButton;
+        _dampButton = UserDataManager.Instance.data.options.dampTiltingButton;
         _pauseButton = UserDataManager.Instance.data.options.pauseButton;
-
-        Debug.Log("Left" + _leftRotateButton);
-        Debug.Log("Right" + _rightRotateButton);
     }
 
     /// <summary>
@@ -85,6 +91,12 @@ public class InputManager : MonoBehaviour
     /// </summary>
     /// <param name="target">Right rotate button keycode from user's data.</param>
     public void SetRightRotateButton(KeyCode target) { _rightRotateButton = target; }
+
+    /// <summary>
+    /// Sets the damp tilting button.
+    /// </summary>
+    /// <param name="target">Damp tilting button from user's data.</param>
+    public void SetDampTiltingButton(KeyCode target) { _dampButton = target; }
 
     /// <summary>
     /// Sets the pause button.

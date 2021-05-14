@@ -84,6 +84,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void TogglePowerup()
     {
+        // TODO: if open, get state and change color
         powerupAnimator.SetTrigger("Open");
     }
 

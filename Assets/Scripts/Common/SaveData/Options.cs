@@ -30,6 +30,11 @@ public struct Options
     public KeyCode rightRotateButton;
 
     /// <summary>
+    /// Damp tilting button.
+    /// </summary>
+    public KeyCode dampTiltingButton;
+
+    /// <summary>
     /// Pause button.
     /// </summary>
     public KeyCode pauseButton;

@@ -48,6 +48,7 @@ public class UserDataManager : MonoBehaviour
             _data.options.sfxVolume = 1f;
             _data.options.leftRotateButton = KeyCode.Q;
             _data.options.rightRotateButton = KeyCode.E;
+            _data.options.dampTiltingButton = KeyCode.LeftShift;
             _data.options.pauseButton = KeyCode.Escape;
 
             SaveData();
@@ -55,6 +56,7 @@ public class UserDataManager : MonoBehaviour
 
         // load data
         LoadData();
+        VerifyInputButtons();
     }
 
     IEnumerator Start()
@@ -63,11 +65,44 @@ public class UserDataManager : MonoBehaviour
         InputManager.Instance.LoadInputSettings();
     }
 
+    void VerifyInputButtons()
+    {
+        bool modified = false;
+        if (_data.options.leftRotateButton == KeyCode.None)
+        {
+            modified = true;
+            _data.options.leftRotateButton = KeyCode.Q;
+        }
+        if (_data.options.rightRotateButton == KeyCode.None)
+        {
+            modified = true;
+            _data.options.rightRotateButton = KeyCode.E;
+        }
+        if (_data.options.dampTiltingButton == KeyCode.None)
+        {
+            modified = true;
+            _data.options.dampTiltingButton = KeyCode.LeftShift;
+        }
+        if (_data.options.pauseButton == KeyCode.None)
+        {
+            modified = true;
+            _data.options.pauseButton = KeyCode.Escape;
+        }
+
+        if (modified) SaveData();
+    }
+
     /// <summary>
     /// Saves user data.
     /// </summary>
     public void SaveData()
     {
+        string write = JsonUtility.ToJson(_data, true);
+        using (StreamReader reader = new StreamReader(File.Open(dataPath, FileMode.Open)))
+        {
+            string temp = reader.ReadToEnd();
+            if (temp.Equals(write)) return; // if equal, just don't save it
+        }
         using (StreamWriter writer = new StreamWriter(File.Open(dataPath, FileMode.Create)))
         {
             writer.Write(JsonUtility.ToJson(_data, true));
