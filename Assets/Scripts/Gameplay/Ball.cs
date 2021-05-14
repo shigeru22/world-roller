@@ -43,7 +43,7 @@ public class Ball : MonoBehaviour
 
         layerMask = ~layerMask;
 
-        Debug.DrawRay(transform.position, -Vector3.up* 100f, Color.red, 2f);
+        //Debug.DrawRay(transform.position, -Vector3.up* 100f, Color.red, 2f);
         if (Physics.Raycast(transform.position + new Vector3(0,5f,0), -Vector3.up, 100f, layerMask))
         {
             //Debug.Log("Did Hit");

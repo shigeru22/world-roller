@@ -18,6 +18,11 @@ public class CameraScript : MonoBehaviour
     Vector3 currentPosition;
     Quaternion currentRotation;
 
+    bool isWall = false;
+    float t = 0.0f;
+    Vector3 tempPosCam;
+    Vector3 tempPosBall;
+
     void Awake()
     {
         Camera temp = GetComponent<Camera>();
@@ -112,20 +117,40 @@ public class CameraScript : MonoBehaviour
         temp.z += currentPosition.z;
         // Debug.Log(temp);
         transform.localPosition = temp;
+        transform.localRotation = Quaternion.Euler(Vector3.zero);
     }
 
     void raycast()
     {
-        float raylength = 3f;
+        float raylength = 3.5f;
 
         RaycastHit hit;
         Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        //Debug.DrawRay(ray.origin, ray.direction * raylength, Color.red);
+        Debug.DrawRay(ray.origin, ray.direction * raylength, Color.red);
+        //Debug.DrawRay(this.transform.position, target.position, Color.red);
 
         //It just works.
-        if (Physics.Raycast(ray, out hit, raylength))
+        if (Physics.Raycast(ray, out hit, raylength) && isWall == false)
+        //if (Physics.Raycast(this.transform.position, target.position, 3f))
         {
-            this.transform.Translate(Vector3.forward*4, Space.Self);
+            isWall = true;
+            t = 0.0f;
+            tempPosCam = this.transform.localPosition;
+            tempPosBall = (tempPosCam + target.position)/2;
+
+            //this.transform.LookAt(target);
+            //this.transform.Translate(Vector3.forward * 4, Space.Self);
+        }
+        if (isWall)
+        {
+            this.transform.LookAt(target);
+            t += Time.deltaTime;
+            //this.transform.position = Vector3.Lerp(tempPosCam, tempPosBall, t * 2);
+            this.transform.Translate(Vector3.Lerp(tempPosCam, tempPosCam+(Vector3.forward*8)+(-Vector3.up*1), t * 2), Space.Self);
+            if (!Physics.Raycast(ray, out hit, raylength))
+            {
+                isWall = false;
+            }
         }
     }
 }
