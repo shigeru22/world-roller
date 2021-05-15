@@ -5,13 +5,16 @@ using UnityEngine.UI;
 
 public class PauseButton : MonoBehaviour
 {
+    Button button;
+
     void Start()
     {
-        GetComponent<Button>().onClick.AddListener(PauseAction);
+        button = GetComponent<Button>();
+        button.onClick.AddListener(PauseAction);
     }
 
     void PauseAction()
     {
-        Pause.PauseGameplay();
+        PauseManager.Instance.TogglePause();
     }
 }
