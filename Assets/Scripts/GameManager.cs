@@ -42,6 +42,11 @@ public class GameManager : MonoBehaviour
     public bool isPlaying { get; private set; }
 
     /// <summary>
+    /// Returns current paused status.
+    /// </summary>
+    public bool isPaused { get; private set; }
+
+    /// <summary>
     /// Returns whether user selects hyperspeed mode.
     /// </summary>
     public bool hyperspeedMode { get { return _hyperspeedMode; } }
@@ -152,6 +157,12 @@ public class GameManager : MonoBehaviour
     /// </summary>
     /// <param name="target">Whether currently is playing.</param>
     public void SetPlayingStatus(bool target) { isPlaying = target; }
+
+    /// <summary>
+    /// Sets paused status.
+    /// </summary>
+    /// <param name="target">Whether currently is paused.</param>
+    public void SetPausedStatus(bool target) { isPaused = target; }
 
     /// <summary>
     /// Sets hyperspeed mode status.
