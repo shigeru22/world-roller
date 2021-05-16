@@ -28,12 +28,12 @@ public class GameManager : MonoBehaviour
     private int _rotation;
     private bool _hyperspeedMode;
     private bool _timerStarted; // whether the timer is counting down
-    private bool _invulnUnlock; //powerup unlock
-    private bool _invulnerabilityMode; //invulnmode
-    private float _mass; //player ball mass
-    private bool _magnetUnlock; //powerup unlock
-    private bool _magnetOn; //coin magnet powerup
-    private int _coinMagnetLevel; //coin magnet powerup
+    private bool _invulnUnlock; // powerup unlock
+    private bool _zenMode; // zen mode
+    private float _mass; // player ball mass
+    private bool _magnetUnlock; // powerup unlock
+    private bool _magnetOn; // coin magnet powerup
+    private int _coinMagnetLevel; // coin magnet level
 
     /// <summary>
     /// Returns current playing status.
@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
     /// Returns current invunerability status.
     /// Checks whether or not player is in invulnerability mode.
     /// </summary>
-    public bool isInvuln { get { return _invulnerabilityMode; } }
+    public bool isZen { get { return _zenMode; } }
 
     /// <summary>
     /// Returns current mass of the ball.
@@ -348,8 +348,8 @@ public class GameManager : MonoBehaviour
     /// Manages the gameplay activation of invulnerability mode.
     /// </summary>
     public void invulnManager(bool on) { 
-        if(on == true) _invulnerabilityMode = true; 
-        else if(on == false) _invulnerabilityMode = false;
+        if(on == true) _zenMode = true; 
+        else if(on == false) _zenMode = false;
     }
 
     /// <summary>

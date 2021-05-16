@@ -38,7 +38,7 @@ public class PowerupButton : MonoBehaviour
                 break;
             case Powerup.Zen:
                 powerup = true;
-                status = GameManager.Instance.isInvuln;
+                status = GameManager.Instance.isZen;
                 if (!status) GameManager.Instance.invulnManager(true);
                 else GameManager.Instance.invulnManager(false);
                 break;

@@ -48,9 +48,8 @@ public class Ball : MonoBehaviour
             coincollector.radius = 7f;
         }
 
-        //todo : change isInvuln to isZen
         //set zenmode
-        if (GameManager.Instance.isInvuln)
+        if (GameManager.Instance.isZen)
         {
             GameManager.Instance.StopTimer();
         }
