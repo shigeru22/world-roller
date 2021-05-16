@@ -15,6 +15,6 @@ public class PauseButton : MonoBehaviour
 
     void PauseAction()
     {
-        PauseManager.Instance.TogglePause();
+        OverlayManager.Instance.TogglePause();
     }
 }

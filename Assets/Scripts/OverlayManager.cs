@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PauseManager : MonoBehaviour
+public class OverlayManager : MonoBehaviour
 {
-    private static PauseManager instance;
+    private static OverlayManager instance;
 
-    public static PauseManager Instance { get { return instance; } }
+    public static OverlayManager Instance { get { return instance; } }
 
     [SerializeField] Animator pauseObject;
     [SerializeField] Button pauseButton;
     [SerializeField] Button[] pauseMenus;
+    [SerializeField] Animator resultsObject;
+    [SerializeField] Button[] resultMenus;
 
     [HideInInspector] public bool blocked;
 
@@ -28,6 +30,7 @@ public class PauseManager : MonoBehaviour
     void Start()
     {
         SetPauseMenuInteractivity(false);
+        SetResultsMenuInteractivity(false);
         blocked = false;
     }
 
@@ -39,6 +42,11 @@ public class PauseManager : MonoBehaviour
     void SetPauseMenuInteractivity(bool target)
     {
         foreach (Button button in pauseMenus) button.interactable = target;
+    }
+
+    void SetResultsMenuInteractivity(bool target)
+    {
+        foreach (Button button in resultMenus) button.interactable = target;
     }
 
     public void TogglePause()
@@ -62,5 +70,18 @@ public class PauseManager : MonoBehaviour
             }
             pauseObject.SetTrigger("Pause");
         }
+    }
+
+    public void ToggleResults()
+    {
+        // TODO: Show this after level is completed, following with button logic
+        SetResultsMenuInteractivity(true);
+        GameManager.Instance.SetCompleted();
+        resultsObject.SetTrigger("Show");
+    }
+
+    public void ResetStatus()
+    {
+        Start();
     }
 }

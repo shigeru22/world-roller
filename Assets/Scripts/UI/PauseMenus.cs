@@ -17,11 +17,11 @@ public class PauseMenus : MonoBehaviour
 
     void OnClick()
     {
-        if(!PauseManager.Instance.blocked)
+        if(!OverlayManager.Instance.blocked)
         {
             if(buttonType == PauseMenuTypes.Resume)
             {
-                PauseManager.Instance.TogglePause();
+                OverlayManager.Instance.TogglePause();
             }
             else if(buttonType == PauseMenuTypes.Retry)
             {

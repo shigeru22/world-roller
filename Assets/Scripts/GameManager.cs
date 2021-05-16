@@ -42,6 +42,11 @@ public class GameManager : MonoBehaviour
     public bool isPlaying { get; private set; }
 
     /// <summary>
+    /// Returns whether the level is completed.
+    /// </summary>
+    public bool isCompleted { get; private set; }
+
+    /// <summary>
     /// Returns current paused status.
     /// </summary>
     public bool isPaused { get; private set; }
@@ -153,10 +158,34 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Resets all status.
+    /// </summary>
+    public void ResetAllStatus()
+    {
+        isPlaying = false;
+        isCompleted = false;
+        ResetCoin();
+        ResetStar();
+        ResetStock();
+        ResetScore();
+        ResetTimer();
+        ResetWorldRotation();
+    }
+
+    /// <summary>
     /// Sets current playing status.
     /// </summary>
     /// <param name="target">Whether currently is playing.</param>
     public void SetPlayingStatus(bool target) { isPlaying = target; }
+
+    /// <summary>
+    /// Sets the level as complete.
+    /// </summary>
+    public void SetCompleted()
+    {
+        isCompleted = true;
+        // TODO: Implement save here.
+    }
 
     /// <summary>
     /// Sets paused status.

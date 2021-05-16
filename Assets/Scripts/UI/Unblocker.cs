@@ -6,6 +6,6 @@ public class Unblocker : MonoBehaviour
 {
     public void Unblock()
     {
-        PauseManager.Instance.blocked = false;
+        OverlayManager.Instance.blocked = false;
     }
 }
