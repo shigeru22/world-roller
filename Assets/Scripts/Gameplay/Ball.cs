@@ -123,12 +123,17 @@ public class Ball : MonoBehaviour
             Collectibles temp = other.GetComponent<Collectibles>();
             CollectibleTypes type = temp.type;
 
-            if (type == CollectibleTypes.Coin) GameManager.Instance.AddCoin();
-            else if (type == CollectibleTypes.Star) GameManager.Instance.AddStar();
-            else throw new InvalidObjectException($"{gameObject.name} triggered {other.gameObject.name} collectible");
+            if(!temp.catched)
+            {
+                if (type == CollectibleTypes.Coin) GameManager.Instance.AddCoin();
+                else if (type == CollectibleTypes.Star) GameManager.Instance.AddStar();
+                else throw new InvalidObjectException($"{gameObject.name} triggered {other.gameObject.name} collectible");
 
-            temp.CatchObject();
-        }else if (other.gameObject.tag.Equals("Gate")){
+                temp.CatchObject();
+            }
+        }
+        else if (other.gameObject.tag.Equals("Gate"))
+        {
             Debug.Log("Gate hit");
             other.GetComponent<BoxCollider>().enabled = false;
             gateCrossed++;

@@ -1504,6 +1504,7 @@ MonoBehaviour:
   resultMenus:
   - {fileID: 904080088}
   - {fileID: 1973738558}
+  resultsCounters: {fileID: 0}
   blocked: 0
 --- !u!4 &743385637
 Transform:
@@ -3404,6 +3405,7 @@ GameObject:
   - component: {fileID: 1598261685}
   - component: {fileID: 1598261687}
   - component: {fileID: 1598261686}
+  - component: {fileID: 1598261688}
   m_Layer: 5
   m_Name: Results
   m_TagString: Untagged
@@ -3459,6 +3461,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1598261684}
   m_CullTransparentMesh: 1
+--- !u!114 &1598261688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1598261684}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03f38d7429b67fa41ad001be55646fab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gatesCount: {fileID: 498032528}
+  starsCount: {fileID: 1814725860}
+  coinsCount: {fileID: 754516792}
+  score: {fileID: 2417725}
 --- !u!1 &1606184570
 GameObject:
   m_ObjectHideFlags: 0

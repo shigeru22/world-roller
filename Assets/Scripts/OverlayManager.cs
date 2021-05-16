@@ -14,6 +14,7 @@ public class OverlayManager : MonoBehaviour
     [SerializeField] Button[] pauseMenus;
     [SerializeField] Animator resultsObject;
     [SerializeField] Button[] resultMenus;
+    [SerializeField] ResultsScript resultsCounters;
 
     [HideInInspector] public bool blocked;
 
@@ -77,6 +78,7 @@ public class OverlayManager : MonoBehaviour
         // TODO: Show this after level is completed, following with button logic
         SetResultsMenuInteractivity(true);
         GameManager.Instance.SetCompleted();
+        resultsCounters.GetCounters();
         resultsObject.SetTrigger("Show");
     }
 
