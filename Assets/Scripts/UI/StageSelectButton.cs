@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class StageSelectButton : MonoBehaviour
 {
     [SerializeField] StageSelectButtonTypes type;
+    [SerializeField] int stageIndex; // used only for stage button
 
     void Start()
     {
@@ -18,27 +19,24 @@ public class StageSelectButton : MonoBehaviour
         {
             if (type.Equals(StageSelectButtonTypes.Close))
             {
-                // trigger close animation
                 MainMenuManager.Instance.canvasDetector.SwitchTarget(MainMenuTypes.Main);
                 MainMenuManager.Instance.RunAnimation("ExitStageSelect", 0.5f);
             }
             else if (type.Equals(StageSelectButtonTypes.Previous))
             {
-                // animate left
                 MainMenuManager.Instance.StageLeft();
             }
             else if (type.Equals(StageSelectButtonTypes.Next))
             {
-                // animate right
                 MainMenuManager.Instance.StageRight();
             }
             else if (type.Equals(StageSelectButtonTypes.Stage))
             {
-                // if stage in center (selected), start, else select and animate to it
+                // TODO: fix bug for randomly clicking on image that doesn't respond
+                MainMenuManager.Instance.SetStage(stageIndex);
             }
             else if (type.Equals(StageSelectButtonTypes.OK))
             {
-                // start
                 MainMenuManager.Instance.StartStage();
             }
             else Debug.LogError("Unknown button type.");

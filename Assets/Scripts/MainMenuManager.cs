@@ -12,8 +12,8 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Animator powerupAnimator;
     public MaskDetection canvasDetector;
 
-    // TODO: Add more stages when done
     [SerializeField] Button[] stages;
+    [SerializeField] Transform stagesHolder;
     
     bool isBlocked;
     float timer;
@@ -54,6 +54,9 @@ public class MainMenuManager : MonoBehaviour
                 timer = 0f;
             }
         }
+
+        // Debug.Log($"holder = {stagesHolder.localPosition.x}, target to {selectedStage} = {selectedStage * 500f}");
+        if(stagesHolder.localPosition.x != selectedStage * 500f) stagesHolder.localPosition = Vector3.Lerp(stagesHolder.localPosition, Vector3.right * selectedStage * -500f, 0.5f);
     }
 
     void SelectStage(int target)
@@ -96,6 +99,13 @@ public class MainMenuManager : MonoBehaviour
     public void StageLeft()
     {
         SelectStage(-1);
+    }
+
+    public void SetStage(int target)
+    {
+        if (target < 0) selectedStage = 0;
+        else if (target > stages.Length) selectedStage = stages.Length - 1;
+        else selectedStage = target;
     }
 
     public void StartStage()
