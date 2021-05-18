@@ -1504,7 +1504,7 @@ MonoBehaviour:
   resultMenus:
   - {fileID: 904080088}
   - {fileID: 1973738558}
-  resultsCounters: {fileID: 0}
+  resultsCounters: {fileID: 1598261688}
   blocked: 0
 --- !u!4 &743385637
 Transform:

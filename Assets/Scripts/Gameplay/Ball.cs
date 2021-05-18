@@ -135,7 +135,13 @@ public class Ball : MonoBehaviour
         {
             Debug.Log("Gate hit");
             other.GetComponent<BoxCollider>().enabled = false;
+            GameManager.Instance.AddGate();
             gateCrossed++;
+        }
+        else if(other.gameObject.tag.Equals("FinalGate"))
+        {
+            // show results
+            StartCoroutine(GameManager.Instance.FinishLevel());
         }
     }
 }

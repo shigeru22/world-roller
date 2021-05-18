@@ -17,6 +17,7 @@ public class OverlayManager : MonoBehaviour
     [SerializeField] ResultsScript resultsCounters;
 
     [HideInInspector] public bool blocked;
+    bool resultShown;
 
     void Awake()
     {
@@ -33,11 +34,17 @@ public class OverlayManager : MonoBehaviour
         SetPauseMenuInteractivity(false);
         SetResultsMenuInteractivity(false);
         blocked = false;
+        resultShown = false;
     }
 
     void Update()
     {
         if (InputManager.Instance.pause) TogglePause();
+        if(GameManager.Instance.isCompleted && !resultShown)
+        {
+            ToggleResults();
+            resultShown = true;
+        }
     }
 
     void SetPauseMenuInteractivity(bool target)
@@ -84,6 +91,7 @@ public class OverlayManager : MonoBehaviour
 
     public void ResetStatus()
     {
-        Start();
+        // Start();
+        Destroy(gameObject);
     }
 }

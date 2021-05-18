@@ -12,7 +12,7 @@ public class ResultsScript : MonoBehaviour
 
     public void GetCounters()
     {
-        // gatesCount = GameManager.Instance. // gates?
+        gatesCount.text = GameManager.Instance.gates.ToString();
         starsCount.text = GameManager.Instance.stars.ToString();
         coinsCount.text = GameManager.Instance.coins.ToString();
         score.text = GameManager.Instance.score.ToString();

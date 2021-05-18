@@ -22,6 +22,7 @@ public class GameManager : MonoBehaviour
     private int _score;
     private int _stars;
     private int _coins;
+    private int _gates;
     private float _health;
     private int _lives;
     private float _timer;
@@ -71,6 +72,11 @@ public class GameManager : MonoBehaviour
     /// Returns current coins count.
     /// </summary>
     public int coins { get { return _coins; } }
+
+    /// <summary>
+    /// Returns current gates count.
+    /// </summary>
+    public int gates { get { return _gates; } }
 
     // health variables
     /// <summary>
@@ -135,7 +141,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        Debug.Log($"Default lives: {defaultLives}, time: {defaultTime}");
+        // Debug.Log($"Default lives: {defaultLives}, time: {defaultTime}");
     }
 
     void Start()
@@ -166,6 +172,7 @@ public class GameManager : MonoBehaviour
         isCompleted = false;
         ResetCoin();
         ResetStar();
+        ResetGate();
         ResetStock();
         ResetScore();
         ResetTimer();
@@ -244,6 +251,16 @@ public class GameManager : MonoBehaviour
     /// Resets the coin count to 0.
     /// </summary>
     public void ResetCoin() { _coins = 0; }
+
+    /// <summary>
+    /// Increases gate count.
+    /// </summary>
+    public void AddGate() { _gates++; }
+
+    /// <summary>
+    /// Resets gate count to 0.
+    /// </summary>
+    public void ResetGate() { _gates = 0; }
 
     /// <summary>
     /// Decreases the health with the specified amount.
@@ -337,6 +354,18 @@ public class GameManager : MonoBehaviour
     {
         StopTimer();
         Time.timeScale = 0f;
+    }
+
+    public IEnumerator FinishLevel()
+    {
+        StopTimer();
+        isPlaying = false;
+        // TODO: add score based on time
+        // _score += "???"
+
+        // TODO: test this later
+        yield return new WaitForSeconds(2f);
+        isCompleted = true;
     }
 
     /// <summary>

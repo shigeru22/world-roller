@@ -8,6 +8,7 @@ TagManager:
   - Collectible
   - SpawnPoint
   - UIPause
+  - FinalGate
   layers:
   - Default
   - TransparentFX
