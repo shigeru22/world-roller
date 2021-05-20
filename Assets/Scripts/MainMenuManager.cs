@@ -111,6 +111,9 @@ public class MainMenuManager : MonoBehaviour
     public void StartStage()
     {
         // selected starts from 0, and the enum stages are from 1 to 4
-        SceneSwitcher.SwitchScene((Scenes)(selectedStage + 1));
+        int target = selectedStage + 1;
+
+        GameManager.Instance.SetStageNumber(target);
+        SceneSwitcher.SwitchScene((Scenes)target);
     }
 }

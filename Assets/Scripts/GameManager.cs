@@ -186,6 +186,12 @@ public class GameManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Sets stage number.
+    /// </summary>
+    /// <param name="stage"></param>
+    public void SetStageNumber(int stage) { _stage = stage; }
+
+    /// <summary>
     /// Sets current playing status.
     /// </summary>
     /// <param name="target">Whether currently is playing.</param>

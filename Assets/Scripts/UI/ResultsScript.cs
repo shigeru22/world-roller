@@ -31,7 +31,13 @@ public class ResultsScript : MonoBehaviour
 
     void NextAction()
     {
-        if (stage < SceneSwitcher.totalScenes - 2) SceneSwitcher.SwitchScene((Scenes)(stage + 1));
+        if (stage < SceneSwitcher.totalScenes - 2)
+        {
+            int target = stage + 1;
+
+            GameManager.Instance.SetStageNumber(target);
+            SceneSwitcher.SwitchScene((Scenes)target);
+        }
         else nextButton.interactable = false;
     }
 }

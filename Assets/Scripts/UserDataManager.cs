@@ -98,14 +98,17 @@ public class UserDataManager : MonoBehaviour
     public void SaveData()
     {
         string write = JsonUtility.ToJson(_data, true);
-        using (StreamReader reader = new StreamReader(File.Open(dataPath, FileMode.Open)))
+        if(File.Exists(dataPath))
         {
-            string temp = reader.ReadToEnd();
-            if (temp.Equals(write)) return; // if equal, just don't save it
+            using (StreamReader reader = new StreamReader(File.Open(dataPath, FileMode.Open)))
+            {
+                string temp = reader.ReadToEnd();
+                if (temp.Equals(write)) return; // if equal, just don't save it
+            }
         }
         using (StreamWriter writer = new StreamWriter(File.Open(dataPath, FileMode.Create)))
         {
-            writer.Write(JsonUtility.ToJson(_data, true));
+            writer.Write(write);
         }
     }
 

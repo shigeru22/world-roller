@@ -33,8 +33,7 @@ public class OverlayManager : MonoBehaviour
     {
         SetPauseMenuInteractivity(false);
         SetResultsMenuInteractivity(false);
-        // TODO: set stage number in GameManager
-        // resultsCounters.stage = GameManager.Instance.stage
+        resultsCounters.stage = GameManager.Instance.stageNumber;
         blocked = false;
         resultShown = false;
     }
