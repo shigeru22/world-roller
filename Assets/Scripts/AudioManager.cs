@@ -12,7 +12,8 @@ public class AudioManager : MonoBehaviour
     [SerializeField] AudioMixerGroup BGMMixer, SFXMixer;
     float sfx, bgm;
 
-    AudioSource background, sound;
+    [SerializeField] AudioClip backgroundSource;
+    [SerializeField] AudioSource background, sound;
 
     void Awake()
     {
@@ -22,6 +23,13 @@ public class AudioManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
+    }
+
+    void Start()
+    {
+        background.outputAudioMixerGroup = BGMMixer;
+        sound.outputAudioMixerGroup = SFXMixer;
+        // PlayMusic(AudioStore.BGM);
     }
 
     void LoadAudioSettings()
@@ -56,20 +64,24 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    public void PlayMusic(AudioSource source)
+    public void PlayMusic(AudioClip clip)
     {
-        if(background != null) background.Stop();
-        background = source;
+        background.clip = clip;
         background.outputAudioMixerGroup = BGMMixer;
         background.loop = true;
         background.Play();
     }
 
-    public void PlaySound(AudioSource source)
+    public void PlayMusic(string resourcesPath)
     {
-        if(sound != null) sound.Stop();
-        sound = source;
-        sound.outputAudioMixerGroup = SFXMixer;
+        background.clip = Resources.Load<AudioClip>(resourcesPath);
+        background.loop = false;
+        background.Play();
+    }
+
+    public void PlaySound(string resourcesPath)
+    {
+        sound.clip = Resources.Load<AudioClip>(resourcesPath);
         sound.loop = false;
         sound.Play();
     }

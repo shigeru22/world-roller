@@ -47,6 +47,8 @@ public class MainMenuButton : MonoBehaviour
                 Application.Quit();
             }
             else Debug.LogError("Unknown button type.");
+
+            AudioManager.Instance.PlaySound(AudioStore.Click);
         }
     }
 }

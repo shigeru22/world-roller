@@ -22,11 +22,14 @@ public class ResultsScript : MonoBehaviour
 
         retryButton.onClick.AddListener(RetryAction);
         nextButton.onClick.AddListener(NextAction);
+
+        if (stage >= SceneSwitcher.totalScenes - 2) nextButton.interactable = false;
     }
 
     void RetryAction()
     {
         SceneSwitcher.SwitchScene(stage);
+        AudioManager.Instance.PlaySound(AudioStore.Click);
     }
 
     void NextAction()
@@ -39,5 +42,7 @@ public class ResultsScript : MonoBehaviour
             SceneSwitcher.SwitchScene((Scenes)target);
         }
         else nextButton.interactable = false;
+
+        AudioManager.Instance.PlaySound(AudioStore.Click);
     }
 }

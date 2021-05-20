@@ -99,11 +99,13 @@ public class Ball : MonoBehaviour
     void OnCollisionEnter(Collision collision)
     {
         // TODO: add collision object check
-
+        AudioManager.Instance.PlaySound(AudioStore.Collide);
         // if fallTime is more than 0.6 seconds, damage = fallTime^1.85
+        /*
         count = false;
         float damage = Mathf.Pow(fallTime, 1.85f);
         if (fallTime > 0.6f) GameManager.Instance.DecreaseHealth(damage);
+        */
 
         // Debug.Log($"Damage: {damage}, Remaining: {GameManager.Instance.health}");
     }
@@ -134,6 +136,7 @@ public class Ball : MonoBehaviour
         else if (other.gameObject.tag.Equals("Gate"))
         {
             Debug.Log("Gate hit");
+            AudioManager.Instance.PlaySound(AudioStore.Success);
             other.GetComponent<BoxCollider>().enabled = false;
             GameManager.Instance.AddGate();
             gateCrossed++;
@@ -141,6 +144,7 @@ public class Ball : MonoBehaviour
         else if(other.gameObject.tag.Equals("FinalGate"))
         {
             // show results
+            AudioManager.Instance.PlaySound(AudioStore.Complete);
             StartCoroutine(GameManager.Instance.FinishLevel());
         }
     }

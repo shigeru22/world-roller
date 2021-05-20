@@ -19,6 +19,7 @@ public class SettingsButton : MonoBehaviour
             if (type.Equals(OptionButtonTypes.Close))
             {
                 // trigger close animation
+                UserDataManager.Instance.SaveData();
                 MainMenuManager.Instance.canvasDetector.SwitchTarget(MainMenuTypes.Main);
                 MainMenuManager.Instance.RunAnimation("ExitOptions", 0.5f);
             }
@@ -27,6 +28,8 @@ public class SettingsButton : MonoBehaviour
             else if (type.Equals(OptionButtonTypes.SFXDecrease)) IncreaseVolume(VolumeTypes.SFX, -0.1f);
             else if (type.Equals(OptionButtonTypes.SFXIncrease)) IncreaseVolume(VolumeTypes.SFX, 0.1f);
             else Debug.LogError("Unknown button type.");
+
+            AudioManager.Instance.PlaySound(AudioStore.Click);
         }
     }
 

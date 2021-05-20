@@ -16,5 +16,6 @@ public class PauseButton : MonoBehaviour
     void PauseAction()
     {
         OverlayManager.Instance.TogglePause();
+        AudioManager.Instance.PlaySound(AudioStore.Click);
     }
 }

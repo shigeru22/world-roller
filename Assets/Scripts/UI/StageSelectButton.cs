@@ -40,6 +40,8 @@ public class StageSelectButton : MonoBehaviour
                 MainMenuManager.Instance.StartStage();
             }
             else Debug.LogError("Unknown button type.");
+
+            AudioManager.Instance.PlaySound(AudioStore.Click);
         }
     }
 }

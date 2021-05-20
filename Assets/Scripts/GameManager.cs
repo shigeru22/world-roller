@@ -247,7 +247,11 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Increases star count by 1.
     /// </summary>
-    public void AddStar() { _stars++; }
+    public void AddStar()
+    {
+        _stars++;
+        AudioManager.Instance.PlaySound(AudioStore.Stars);
+    }
 
     /// <summary>
     /// Resets the star count to 0.
@@ -257,7 +261,11 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Increases coin count by 1.
     /// </summary>
-    public void AddCoin() { _coins++; }
+    public void AddCoin()
+    {
+        _coins++;
+        AudioManager.Instance.PlaySound(AudioStore.Coins);
+    }
 
     /// <summary>
     /// Resets the coin count to 0.
