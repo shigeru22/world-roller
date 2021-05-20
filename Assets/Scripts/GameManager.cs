@@ -390,6 +390,8 @@ public class GameManager : MonoBehaviour
         isPlaying = false;
         // TODO: add score based on time
         // _score += "???"
+        // temporary
+        _score = _gates * 2000 + _stars * 1000 + _coins * 100 + (Mathf.FloorToInt(_timer) * 10);
 
         // TODO: test this later
         yield return new WaitForSeconds(2f);
