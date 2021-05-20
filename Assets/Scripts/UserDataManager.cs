@@ -61,8 +61,9 @@ public class UserDataManager : MonoBehaviour
 
     IEnumerator Start()
     {
-        yield return new WaitUntil(() => InputManager.Instance != null);
+        yield return new WaitUntil(() => InputManager.Instance != null && MainMenuManager.Instance != null);
         InputManager.Instance.LoadInputSettings();
+        MainMenuManager.Instance.LoadPowerupUnlockData();
     }
 
     void VerifyInputButtons()
