@@ -15,6 +15,7 @@ public class OverlayManager : MonoBehaviour
     [SerializeField] Animator resultsObject;
     [SerializeField] Button[] resultMenus;
     [SerializeField] ResultsScript resultsCounters;
+    [SerializeField] FailedScript failedWindow;
 
     [HideInInspector] public bool blocked;
     bool resultShown;
@@ -33,7 +34,7 @@ public class OverlayManager : MonoBehaviour
     {
         SetPauseMenuInteractivity(false);
         SetResultsMenuInteractivity(false);
-        resultsCounters.stage = GameManager.Instance.stageNumber;
+        // resultsCounters.stage = GameManager.Instance.stageNumber;
         blocked = false;
         resultShown = false;
     }
@@ -46,16 +47,29 @@ public class OverlayManager : MonoBehaviour
             ToggleResults();
             resultShown = true;
         }
+        if(GameManager.Instance.isFailed && !resultShown)
+        {
+            failedWindow.ShowWindow();
+            resultShown = true;
+        }
     }
 
     void SetPauseMenuInteractivity(bool target)
     {
-        foreach (Button button in pauseMenus) button.interactable = target;
+        foreach (Button button in pauseMenus)
+        {
+            button.interactable = target;
+            button.GetComponent<Image>().raycastTarget = target;
+        }
     }
 
     void SetResultsMenuInteractivity(bool target)
     {
-        foreach (Button button in resultMenus) button.interactable = target;
+        foreach (Button button in resultMenus)
+        {
+            button.interactable = target;
+            button.GetComponent<Image>().raycastTarget = target;
+        }
     }
 
     public void TogglePause()
@@ -92,7 +106,12 @@ public class OverlayManager : MonoBehaviour
 
     public void ResetStatus()
     {
-        // Start();
+        Start();
+        // Destroy(gameObject);
+    }
+
+    public void DestroyObject()
+    {
         Destroy(gameObject);
     }
 }
