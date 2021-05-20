@@ -42,6 +42,7 @@ public class SettingsButton : MonoBehaviour
             if (temp < 0f) temp = 0f;
             else if (temp > 1f) temp = 1f;
 
+            temp = Mathf.Round(temp * 10) / 10f;
             UserDataManager.Instance.SetBgmVolume(temp);
         }
         else if (type.Equals(VolumeTypes.SFX))
@@ -52,6 +53,7 @@ public class SettingsButton : MonoBehaviour
             if (temp < 0f) temp = 0f;
             else if (temp > 1f) temp = 1f;
 
+            temp = Mathf.Round(temp * 10) / 10f;
             UserDataManager.Instance.SetSfxVolume(temp);
         }
         else Debug.LogError("Unknown volume type.");
