@@ -68,11 +68,11 @@ public class Ball : MonoBehaviour
 
     private void Update()
     {
-        if (gateCrossed == checkpointGates)
+        /*if (gateCrossed == checkpointGates)
         {
             Instantiate(finalGate, new Vector3 (1,1.8f,14), Quaternion.Euler(-90,0,0));
             gateCrossed = 0;
-        }
+        }*/
 
         int layerMask = 1 << 6;
 

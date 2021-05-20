@@ -19,6 +19,7 @@ public class GameManager : MonoBehaviour
     [Tooltip("Sets default timer time.")] [Range(60, 300)] public int defaultTime;
 
     // private variables
+    private int _stage;
     private int _score;
     private int _stars;
     private int _coins;
@@ -56,6 +57,11 @@ public class GameManager : MonoBehaviour
     /// Returns whether user selects hyperspeed mode.
     /// </summary>
     public bool hyperspeedMode { get { return _hyperspeedMode; } }
+
+    /// <summary>
+    /// Returns stage number;
+    /// </summary>
+    public int stageNumber { get { return _stage; } }
 
     // score variables
     /// <summary>

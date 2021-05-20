@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class ResultsScript : MonoBehaviour
 {
+    public int stage;
     [SerializeField] Text gatesCount;
     [SerializeField] Text starsCount;
     [SerializeField] Text coinsCount;
     [SerializeField] Text score;
+    [SerializeField] Button retryButton;
+    [SerializeField] Button nextButton;
 
     public void GetCounters()
     {
@@ -16,5 +19,19 @@ public class ResultsScript : MonoBehaviour
         starsCount.text = GameManager.Instance.stars.ToString();
         coinsCount.text = GameManager.Instance.coins.ToString();
         score.text = GameManager.Instance.score.ToString();
+
+        retryButton.onClick.AddListener(RetryAction);
+        nextButton.onClick.AddListener(NextAction);
+    }
+
+    void RetryAction()
+    {
+        SceneSwitcher.SwitchScene(stage);
+    }
+
+    void NextAction()
+    {
+        if (stage < SceneSwitcher.totalScenes - 2) SceneSwitcher.SwitchScene((Scenes)(stage + 1));
+        else nextButton.interactable = false;
     }
 }

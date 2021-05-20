@@ -2,9 +2,16 @@ using UnityEngine.SceneManagement;
 
 public class SceneSwitcher
 {
+    public static int totalScenes { get { return SceneManager.sceneCountInBuildSettings; } }
+
     public static void SwitchScene(Scenes scene)
     {
         SceneManager.LoadScene((int)scene);
+    }
+
+    public static void SwitchScene(int sceneIndex)
+    {
+        SceneManager.LoadScene(sceneIndex);
     }
 
     public static void SwitchScene(string sceneName)
