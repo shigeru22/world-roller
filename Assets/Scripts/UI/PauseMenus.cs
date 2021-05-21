@@ -25,16 +25,24 @@ public class PauseMenus : MonoBehaviour
             }
             else if(buttonType == PauseMenuTypes.Retry)
             {
-                // TODO: Add retry animation and reload scene
+                GameManager.Instance.ResumeGameplay();
+                GameManager.Instance.ResetAllStatus();
+                OverlayManager.Instance.DestroyObject();
+                SceneSwitcher.SwitchScene(GameManager.Instance.stageNumber);
             }
             else if(buttonType == PauseMenuTypes.Exit)
             {
-                // TODO: Add retry animation (same since transitions to black) and load main menu scene
+                GameManager.Instance.ResumeGameplay();
+                GameManager.Instance.ResetAllStatus();
+                OverlayManager.Instance.DestroyObject();
+                SceneSwitcher.SwitchScene(Scenes.MainMenu);
             }
             else
             {
                 Debug.LogError("Unknown button type.");
             }
+
+            AudioManager.Instance.PlaySound(AudioStore.Click);
         }
     }
 }
