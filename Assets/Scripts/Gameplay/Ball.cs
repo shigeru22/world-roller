@@ -108,6 +108,9 @@ public class Ball : MonoBehaviour
         */
 
         // Debug.Log($"Damage: {damage}, Remaining: {GameManager.Instance.health}");
+        if(collision.gameObject.name.Contains("SteppingStone")){
+            Physics.gravity = new Vector3(0, -40.0F, 0);
+        }
     }
 
     void OnCollisionExit(Collision collision)

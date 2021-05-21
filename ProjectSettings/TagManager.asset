@@ -9,6 +9,7 @@ TagManager:
   - SpawnPoint
   - UIPause
   - FinalGate
+  - Lift
   layers:
   - Default
   - TransparentFX

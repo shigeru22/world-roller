@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ResultsScript : MonoBehaviour
 {
+    public int stage;
     [SerializeField] Text gatesCount;
     [SerializeField] Text starsCount;
     [SerializeField] Text coinsCount;
@@ -22,23 +23,26 @@ public class ResultsScript : MonoBehaviour
         retryButton.onClick.AddListener(RetryAction);
         nextButton.onClick.AddListener(NextAction);
 
-        if (GameManager.Instance.stageNumber >= SceneSwitcher.totalScenes - 2) nextButton.interactable = false;
+        if (stage >= SceneSwitcher.totalScenes - 2) nextButton.interactable = false;
     }
 
     void RetryAction()
     {
-        OverlayManager.Instance.ResetStatus();
-        SceneSwitcher.SwitchScene(GameManager.Instance.stageNumber);
+        SceneSwitcher.SwitchScene(stage);
         AudioManager.Instance.PlaySound(AudioStore.Click);
     }
 
     void NextAction()
     {
-        int target = GameManager.Instance.stageNumber + 1;
+        if (stage < SceneSwitcher.totalScenes - 2)
+        {
+            int target = stage + 1;
 
-        GameManager.Instance.SetStageNumber(target);
-        OverlayManager.Instance.ResetStatus();
+            GameManager.Instance.SetStageNumber(target);
+            SceneSwitcher.SwitchScene((Scenes)target);
+        }
+        else nextButton.interactable = false;
+
         AudioManager.Instance.PlaySound(AudioStore.Click);
-        SceneSwitcher.SwitchScene((Scenes)target);
     }
 }

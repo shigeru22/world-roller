@@ -49,11 +49,6 @@ public class GameManager : MonoBehaviour
     public bool isCompleted { get; private set; }
 
     /// <summary>
-    /// Returns whether the level is failed.
-    /// </summary>
-    public bool isFailed { get; private set; }
-
-    /// <summary>
     /// Returns current paused status.
     /// </summary>
     public bool isPaused { get; private set; }
@@ -170,7 +165,6 @@ public class GameManager : MonoBehaviour
             {
                 StopTimer();
                 _timer = 0f;
-                StartCoroutine(Failed());
             }
         }
     }
@@ -181,9 +175,7 @@ public class GameManager : MonoBehaviour
     public void ResetAllStatus()
     {
         isPlaying = false;
-        isPaused = false;
         isCompleted = false;
-        isFailed = false;
         ResetCoin();
         ResetStar();
         ResetGate();
@@ -390,20 +382,10 @@ public class GameManager : MonoBehaviour
         isPlaying = false;
         // TODO: add score based on time
         // _score += "???"
-        // temporary
-        _score = _gates * 2000 + _stars * 1000 + _coins * 100 + (Mathf.FloorToInt(_timer) * 10);
 
         // TODO: test this later
         yield return new WaitForSeconds(2f);
         isCompleted = true;
-    }
-
-    public IEnumerator Failed()
-    {
-        isPlaying = false;
-
-        yield return new WaitForSeconds(2f);
-        isFailed = true;
     }
 
     /// <summary>
