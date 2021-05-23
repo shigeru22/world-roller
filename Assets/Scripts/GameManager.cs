@@ -393,7 +393,13 @@ public class GameManager : MonoBehaviour
         // temporary
         _score = _gates * 2000 + _stars * 1000 + _coins * 100 + (Mathf.FloorToInt(_timer) * 10);
 
-        // TODO: test this later
+        // save data
+        UserDataManager.Instance.SetStageClearedStatus(_stage, true);
+        UserDataManager.Instance.SetStageStars(_stage, _stars);
+        UserDataManager.Instance.SetStageCoins(_stage, _coins);
+        UserDataManager.Instance.SetStageScore(_stage, _score);
+        UserDataManager.Instance.SaveData();
+
         yield return new WaitForSeconds(2f);
         isCompleted = true;
     }

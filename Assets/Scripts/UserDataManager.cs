@@ -152,9 +152,9 @@ public class UserDataManager : MonoBehaviour
     /// <param name="stars">Number of stars to be set.</param>
     public void SetStageStars(int stage, int stars)
     {
-        _data.stages[stage].stars = stars;
-        if (_data.stages[stage].stars > 3) _data.stages[stage].stars = 3;
-        else if (_data.stages[stage].stars < 0) _data.stages[stage].stars = 0;
+        _data.stages[stage - 1].stars = stars;
+        if (_data.stages[stage - 1].stars > 3) _data.stages[stage].stars = 3;
+        else if (_data.stages[stage - 1].stars < 0) _data.stages[stage].stars = 0;
     }
 
     /// <summary>
@@ -164,8 +164,8 @@ public class UserDataManager : MonoBehaviour
     /// <param name="coins">Number of coins to be set.</param>
     public void SetStageCoins(int stage, int coins)
     {
-        _data.stages[stage].coins = coins;
-        if (_data.stages[stage].coins < 0) _data.stages[stage].coins = 0;
+        _data.stages[stage - 1].coins = coins;
+        if (_data.stages[stage - 1].coins < 0) _data.stages[stage].coins = 0;
     }
 
     /// <summary>
