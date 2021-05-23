@@ -30,7 +30,6 @@ public class Ball : MonoBehaviour
         GameManager.Instance.ResetTimer();
         Debug.Log($"Health: {GameManager.Instance.health}, Lives: {GameManager.Instance.lives}");
 
-
         //set coin magnet
         rigid = this.GetComponent<Rigidbody>();
         coincollector = this.GetComponent<CapsuleCollider>();
@@ -92,7 +91,7 @@ public class Ball : MonoBehaviour
                 this.transform.position = spawnPoint.transform.position;
                 rigid.velocity = new Vector3(0, 0, 0);
             }
-            Debug.LogError("Did not Hit");
+            // Debug.LogError("Did not Hit");
         }
     }
 
@@ -121,7 +120,7 @@ public class Ball : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
+        // Debug.Log(other.gameObject.name);
         if(other.gameObject.tag.Equals("Collectible"))
         {
             Collectibles temp = other.GetComponent<Collectibles>();
@@ -138,9 +137,14 @@ public class Ball : MonoBehaviour
         }
         else if (other.gameObject.tag.Equals("Gate"))
         {
-            Debug.Log("Gate hit");
+            // Debug.Log("Gate hit");
             AudioManager.Instance.PlaySound(AudioStore.Success);
             other.GetComponent<BoxCollider>().enabled = false;
+
+            // change color programatically
+            // Debug.Log(other.GetComponentInChildren<StatusCube>().gameObject.name);
+            other.GetComponentInChildren<StatusCube>().ChangeColor();
+
             GameManager.Instance.AddGate();
             gateCrossed++;
         }
