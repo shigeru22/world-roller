@@ -10,6 +10,7 @@ TagManager:
   - UIPause
   - FinalGate
   - Lift
+  - RotateWorld
   layers:
   - Default
   - TransparentFX
