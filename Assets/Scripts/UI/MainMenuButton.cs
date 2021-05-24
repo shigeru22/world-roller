@@ -40,6 +40,7 @@ public class MainMenuButton : MonoBehaviour
             {
                 // enter credits
                 MainMenuManager.Instance.canvasDetector.SwitchTarget(MainMenuTypes.Credits);
+                MainMenuManager.Instance.RunAnimation("EnterCredits", 0.5f);
             }
             else if (buttonType == ButtonTypes.Exit)
             {
