@@ -156,7 +156,11 @@ public class CameraScript : MonoBehaviour
             this.transform.LookAt(target);
             t += Time.deltaTime;
             //this.transform.position = Vector3.Lerp(tempPosCam, tempPosBall, t * 2);
-            this.transform.Translate(Vector3.Lerp(tempPosCam, tempPosCam+(Vector3.forward*8)+(-Vector3.up*1), t * 2), Space.Self);
+            // transform.Translate(Vector3.Lerp(tempPosCam, tempPosCam+(Vector3.forward*8)+(-Vector3.up*1), t * 2), Space.Self);
+            transform.Translate(Vector3.Lerp(tempPosCam, tempPosCam + (Vector3.forward * 8) + (-Vector3.up * 1), t * 2), Space.Self);
+            // Vector3 temp = new Vector3(tempPosCam.x, tempPosCam.y, tempPosCam.z);
+            // temp += (Vector3.forward * 6) + (-Vector3.up * 1);
+            // transform.localPosition = temp;
             if (!Physics.Raycast(ray, out hit, raylength))
             {
                 isWall = false;

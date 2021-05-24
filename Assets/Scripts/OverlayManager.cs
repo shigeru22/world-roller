@@ -16,8 +16,10 @@ public class OverlayManager : MonoBehaviour
     [SerializeField] Button[] resultMenus;
     [SerializeField] ResultsScript resultsCounters;
     [SerializeField] FailedScript failedWindow;
+    [SerializeField] StatusScript announcerObject;
 
     [HideInInspector] public bool blocked;
+    bool announced;
     bool resultShown;
 
     void Awake()
@@ -37,6 +39,7 @@ public class OverlayManager : MonoBehaviour
         // resultsCounters.stage = GameManager.Instance.stageNumber;
         blocked = false;
         resultShown = false;
+        announced = false;
     }
 
     void Update()
@@ -102,6 +105,24 @@ public class OverlayManager : MonoBehaviour
         GameManager.Instance.SetCompleted();
         resultsCounters.GetCounters();
         resultsObject.SetTrigger("Show");
+    }
+
+    public void ToggleFailedAnnouncer()
+    {
+        if (!announced)
+        {
+            announcerObject.ToggleFailed();
+            announced = true;
+        }
+    }
+
+    public void ToggleFinishAnnouncer()
+    {
+        if(!announced)
+        {
+            announcerObject.ToggleFinish();
+            announced = true;
+        }
     }
 
     public void ResetStatus()

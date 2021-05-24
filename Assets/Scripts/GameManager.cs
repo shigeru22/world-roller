@@ -400,6 +400,8 @@ public class GameManager : MonoBehaviour
         UserDataManager.Instance.SetStageScore(_stage, _score);
         UserDataManager.Instance.SaveData();
 
+        OverlayManager.Instance.ToggleFinishAnnouncer();
+
         yield return new WaitForSeconds(2f);
         isCompleted = true;
     }
@@ -407,6 +409,7 @@ public class GameManager : MonoBehaviour
     public IEnumerator Failed()
     {
         isPlaying = false;
+        OverlayManager.Instance.ToggleFailedAnnouncer();
 
         yield return new WaitForSeconds(2f);
         isFailed = true;
