@@ -15115,6 +15115,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Gate
       objectReference: {fileID: 0}
+    - target: {fileID: 7461030709144685533, guid: 838a5930d5fed4c4491ec5b7123bd01f, type: 3}
+      propertyPath: m_TagString
+      value: FinalGate
+      objectReference: {fileID: 0}
     - target: {fileID: 7731429554463324211, guid: 838a5930d5fed4c4491ec5b7123bd01f, type: 3}
       propertyPath: m_Material
       value: 

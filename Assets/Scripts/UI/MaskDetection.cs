@@ -16,7 +16,7 @@ public class MaskDetection : MonoBehaviour
         current = MainMenuTypes.Main;
         stageSelectWindow.gameObject.SetActive(false);
         optionsWindow.gameObject.SetActive(false);
-        // creditsWindow.gameObject.SetActive(false);
+        creditsWindow.gameObject.SetActive(false);
     }
 
     void Update()
