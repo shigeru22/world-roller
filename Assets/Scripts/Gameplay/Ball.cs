@@ -10,6 +10,11 @@ public class Ball : MonoBehaviour
     public int checkpointGates;
     int gateCrossed = 0;
     public GameObject finalGate;
+    public GameObject spawnPoint;
+
+    CapsuleCollider coincollector;
+    Rigidbody rigid;
+    float delay = 0.0f;
 
     void Start()
     {
@@ -24,6 +29,35 @@ public class Ball : MonoBehaviour
         }
         GameManager.Instance.ResetTimer();
         Debug.Log($"Health: {GameManager.Instance.health}, Lives: {GameManager.Instance.lives}");
+
+        //set coin magnet
+        rigid = this.GetComponent<Rigidbody>();
+        coincollector = this.GetComponent<CapsuleCollider>();
+        if (GameManager.Instance.getMagnetLevel() == 0)
+        {
+            coincollector.radius = 1f;
+        }else if (GameManager.Instance.getMagnetLevel() == 1)
+        {
+            coincollector.radius = 2.5f;
+        }else if (GameManager.Instance.getMagnetLevel() == 2)
+        {
+            coincollector.radius = 4.5f;
+        }else if (GameManager.Instance.getMagnetLevel() == 3)
+        {
+            coincollector.radius = 7f;
+        }
+
+        //set zenmode
+        if (GameManager.Instance.isZen)
+        {
+            GameManager.Instance.StopTimer();
+        }
+
+        //Set hyperspeedmode
+        if (GameManager.Instance.hyperspeedMode)
+        {
+            Time.timeScale = 2f;
+        }
     }
 
     void FixedUpdate()
@@ -33,23 +67,49 @@ public class Ball : MonoBehaviour
 
     private void Update()
     {
-        if (gateCrossed == checkpointGates)
+        /*if (gateCrossed == checkpointGates)
         {
             Instantiate(finalGate, new Vector3 (1,1.8f,14), Quaternion.Euler(-90,0,0));
             gateCrossed = 0;
+        }*/
+
+        int layerMask = 1 << 6;
+
+        layerMask = ~layerMask;
+
+        Debug.DrawRay(transform.position, -Vector3.up* 100f, Color.red);
+        if (Physics.Raycast(transform.position + new Vector3(0,10f,0), -Vector3.up, 1000f, layerMask))
+        {
+            delay = 0;
+            //Debug.Log("Did Hit");
+        }
+        else
+        {
+            delay += Time.deltaTime;
+            if(delay > 2f)
+            {
+                this.transform.position = spawnPoint.transform.position;
+                rigid.velocity = new Vector3(0, 0, 0);
+            }
+            // Debug.LogError("Did not Hit");
         }
     }
 
     void OnCollisionEnter(Collision collision)
     {
         // TODO: add collision object check
-
+        AudioManager.Instance.PlaySound(AudioStore.Collide);
         // if fallTime is more than 0.6 seconds, damage = fallTime^1.85
+        /*
         count = false;
         float damage = Mathf.Pow(fallTime, 1.85f);
         if (fallTime > 0.6f) GameManager.Instance.DecreaseHealth(damage);
+        */
 
         // Debug.Log($"Damage: {damage}, Remaining: {GameManager.Instance.health}");
+        if(collision.gameObject.name.Contains("SteppingStone")){
+            Physics.gravity = new Vector3(0, -40.0F, 0);
+        }
     }
 
     void OnCollisionExit(Collision collision)
@@ -60,21 +120,39 @@ public class Ball : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        Debug.Log(other.gameObject.name);
+        // Debug.Log(other.gameObject.name);
         if(other.gameObject.tag.Equals("Collectible"))
         {
             Collectibles temp = other.GetComponent<Collectibles>();
             CollectibleTypes type = temp.type;
 
-            if (type == CollectibleTypes.Coin) GameManager.Instance.AddCoin();
-            else if (type == CollectibleTypes.Star) GameManager.Instance.AddStar();
-            else throw new InvalidObjectException($"{gameObject.name} triggered {other.gameObject.name} collectible");
+            if(!temp.catched)
+            {
+                if (type == CollectibleTypes.Coin) GameManager.Instance.AddCoin();
+                else if (type == CollectibleTypes.Star) GameManager.Instance.AddStar();
+                else throw new InvalidObjectException($"{gameObject.name} triggered {other.gameObject.name} collectible");
 
-            temp.CatchObject();
-        }else if (other.gameObject.tag.Equals("Gate")){
-            Debug.Log("Gate hit");
+                temp.CatchObject();
+            }
+        }
+        else if (other.gameObject.tag.Equals("Gate"))
+        {
+            // Debug.Log("Gate hit");
+            AudioManager.Instance.PlaySound(AudioStore.Success);
             other.GetComponent<BoxCollider>().enabled = false;
+
+            // change color programatically
+            // Debug.Log(other.GetComponentInChildren<StatusCube>().gameObject.name);
+            other.GetComponentInChildren<StatusCube>().ChangeColor();
+
+            GameManager.Instance.AddGate();
             gateCrossed++;
+        }
+        else if(other.gameObject.tag.Equals("FinalGate"))
+        {
+            // show results
+            AudioManager.Instance.PlaySound(AudioStore.Complete);
+            StartCoroutine(GameManager.Instance.FinishLevel());
         }
     }
 }

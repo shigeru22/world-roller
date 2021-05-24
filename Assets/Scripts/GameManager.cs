@@ -19,13 +19,23 @@ public class GameManager : MonoBehaviour
     [Tooltip("Sets default timer time.")] [Range(60, 300)] public int defaultTime;
 
     // private variables
+    private int _stage;
     private int _score;
     private int _stars;
     private int _coins;
+    private int _gates;
     private float _health;
     private int _lives;
     private float _timer;
-    private bool timerStarted; // whether the timer is counting down
+    private int _rotation;
+    private bool _hyperspeedMode;
+    private bool _timerStarted; // whether the timer is counting down
+    private bool _invulnUnlock; // powerup unlock
+    private bool _zenMode; // zen mode
+    private float _mass; // player ball mass
+    private bool _magnetUnlock; // powerup unlock
+    private bool _magnetOn; // coin magnet powerup
+    private int _coinMagnetLevel; // coin magnet level
 
     /// <summary>
     /// Returns current playing status.
@@ -33,55 +43,105 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public bool isPlaying { get; private set; }
 
+    /// <summary>
+    /// Returns whether the level is completed.
+    /// </summary>
+    public bool isCompleted { get; private set; }
+
+    /// <summary>
+    /// Returns whether the level is failed.
+    /// </summary>
+    public bool isFailed { get; private set; }
+
+    /// <summary>
+    /// Returns current paused status.
+    /// </summary>
+    public bool isPaused { get; private set; }
+
+    /// <summary>
+    /// Returns whether user selects hyperspeed mode.
+    /// </summary>
+    public bool hyperspeedMode { get { return _hyperspeedMode; } }
+
+    /// <summary>
+    /// Returns stage number;
+    /// </summary>
+    public int stageNumber { get { return _stage; } }
+
     // score variables
     /// <summary>
     /// Returns current score.
     /// </summary>
-    public int score
-    {
-        get { return _score; }
-        private set { _score = value; }
-    }
+    public int score { get { return _score; } }
 
-    public int stars
-    {
-        get { return _stars; }
-        private set { _stars = value; }
-    }
+    /// <summary>
+    /// Returns current stars count.
+    /// </summary>
+    public int stars { get { return _stars; } }
 
-    public int coins
-    {
-        get { return _coins; }
-        private set { _coins = value; }
-    }
+    /// <summary>
+    /// Returns current coins count.
+    /// </summary>
+    public int coins { get { return _coins; } }
+
+    /// <summary>
+    /// Returns current gates count.
+    /// </summary>
+    public int gates { get { return _gates; } }
 
     // health variables
     /// <summary>
     /// Returns current health.
     /// </summary>
-    public float health
-    {
-        get { return _health; }
-        private set { _health = value; }
-    }
+    public float health { get { return _health; } }
     /// <summary>
     /// Returns current livestock.
     /// </summary>
-    public int lives
-    {
-        get { return _lives; }
-        private set { _lives = value; }
-    }
+    public int lives { get { return _lives; } }
 
     // time variables
     /// <summary>
     /// Returns current timer left.
     /// </summary>
-    public float timer
-    {
-        get { return _timer; }
-        private set { _timer = value; }
-    }
+    public float timer { get { return _timer; } }
+
+    // world specific
+    public float worldRotation { get { return _rotation * 90f; } }
+
+
+    //todo : change isInvuln to isZen
+    /// <summary>
+    /// Checks whether or not invulnerability mode is unlocked.
+    /// </summary>
+    public bool isInvulnUnlocked { get { return _invulnUnlock; } }
+
+    /// <summary>
+    /// Returns current invunerability status.
+    /// Checks whether or not player is in invulnerability mode.
+    /// </summary>
+    public bool isZen { get { return _zenMode; } }
+
+    /// <summary>
+    /// Returns current mass of the ball.
+    /// </summary>
+    public float mass { get { return _mass; } }
+
+    /// <summary>
+    /// Returns current invunerability status.
+    /// Checks whether or not coin magnet mode is unlocked.
+    /// </summary>
+    public bool isMagnetUnlock { get { return _magnetUnlock; } }
+
+    /// <summary>
+    /// Returns current coin magnet status.
+    /// Checks whether or not player is in coin magnet mode.
+    /// </summary>
+    public bool isMagnet { get { return _magnetOn; } }
+
+    /// <summary>
+    /// Returns current coin magnet level.
+    /// </summary>
+    public float magnet { get { return _coinMagnetLevel; } }
 
     void Awake()
     {
@@ -92,7 +152,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        Debug.Log($"Default lives: {defaultLives}, time: {defaultTime}");
+        // Debug.Log($"Default lives: {defaultLives}, time: {defaultTime}");
     }
 
     void Start()
@@ -102,54 +162,133 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (timerStarted)
+        if (_timerStarted)
         {
-            timer -= Time.deltaTime;
+            _timer -= Time.deltaTime;
         
             if (timer < 0f)
             {
                 StopTimer();
-                timer = 0f;
+                _timer = 0f;
+                StartCoroutine(Failed());
             }
         }
     }
 
     /// <summary>
-    /// 
+    /// Resets all status.
+    /// </summary>
+    public void ResetAllStatus()
+    {
+        isPlaying = false;
+        isPaused = false;
+        isCompleted = false;
+        isFailed = false;
+        ResetCoin();
+        ResetStar();
+        ResetGate();
+        ResetStock();
+        ResetScore();
+        ResetTimer();
+        ResetWorldRotation();
+    }
+
+    /// <summary>
+    /// Sets stage number.
+    /// </summary>
+    /// <param name="stage"></param>
+    public void SetStageNumber(int stage) { _stage = stage; }
+
+    /// <summary>
+    /// Sets current playing status.
+    /// </summary>
+    /// <param name="target">Whether currently is playing.</param>
+    public void SetPlayingStatus(bool target) { isPlaying = target; }
+
+    /// <summary>
+    /// Sets the level as complete.
+    /// </summary>
+    public void SetCompleted()
+    {
+        isCompleted = true;
+        // TODO: Implement save here.
+    }
+
+    /// <summary>
+    /// Sets paused status.
+    /// </summary>
+    /// <param name="target">Whether currently is paused.</param>
+    public void SetPausedStatus(bool target) { isPaused = target; }
+
+    /// <summary>
+    /// Sets hyperspeed mode status.
     /// </summary>
     /// <param name="target"></param>
-    public void SetPlayingStatus(bool target) { isPlaying = target; }
+    public void SetHyperspeedMode(bool target) { _hyperspeedMode = target; }
+
+    /// <summary>
+    /// Rotates world (or camera perspective).
+    /// </summary>
+    /// <param name="target"></param>
+    public void RotateWorld(RotationTargets target)
+    {
+        if (target.Equals(RotationTargets.Left)) _rotation--;
+        else if (target.Equals(RotationTargets.Right)) _rotation++;
+    }
+
+    /// <summary>
+    /// Resets current world rotation to 0.
+    /// </summary>
+    public void ResetWorldRotation() { _rotation = 0; }
 
     /// <summary>
     /// Increases the score with the specified amount.
     /// </summary>
     /// <param name="amount">Amount of scores to be increased.</param>
-    public void IncreaseScore(int amount) { score += amount; }
+    public void IncreaseScore(int amount) { _score += amount; }
 
     /// <summary>
     /// Resets the score to 0.
     /// </summary>
-    public void ResetScore() { score = 0; }
+    public void ResetScore() { _score = 0; }
 
     /// <summary>
     /// Increases star count by 1.
     /// </summary>
-    public void AddStar() { stars++; }
+    public void AddStar()
+    {
+        _stars++;
+        AudioManager.Instance.PlaySound(AudioStore.Stars);
+    }
 
     /// <summary>
     /// Resets the star count to 0.
     /// </summary>
-    public void ResetStar() { stars = 0; }
+    public void ResetStar() { _stars = 0; }
 
     /// <summary>
     /// Increases coin count by 1.
     /// </summary>
-    public void AddCoin() { coins++; }
+    public void AddCoin()
+    {
+        _coins++;
+        AudioManager.Instance.PlaySound(AudioStore.Coins);
+    }
 
     /// <summary>
     /// Resets the coin count to 0.
     /// </summary>
-    public void ResetCoin() { coins = 0; }
+    public void ResetCoin() { _coins = 0; }
+
+    /// <summary>
+    /// Increases gate count.
+    /// </summary>
+    public void AddGate() { _gates++; }
+
+    /// <summary>
+    /// Resets gate count to 0.
+    /// </summary>
+    public void ResetGate() { _gates = 0; }
 
     /// <summary>
     /// Decreases the health with the specified amount.
@@ -158,33 +297,33 @@ public class GameManager : MonoBehaviour
     public void DecreaseHealth(float amount)
     {
         Debug.Log($"Decreasing health by {amount}.");
-        health -= amount;
-        if (health < 0f) health = 0f;
+        _health -= amount;
+        if (health < 0f) _health = 0f;
     }
 
     /// <summary>
     /// Resets the health to its fullest.
     /// </summary>
-    public void ResetHealth() { health = 100f; }
+    public void ResetHealth() { _health = 100f; }
 
     /// <summary>
     /// Adds the livestock by one.
     /// </summary>
-    public void AddStock() { lives++; }
+    public void AddStock() { _lives++; }
 
     /// <summary>
     /// Adds the livestock by the specified amount.
     /// </summary>
     /// <param name="amount">Amount of livestock to be added.</param>
-    public void AddStock(int amount) { lives += amount; }
+    public void AddStock(int amount) { _lives += amount; }
 
     /// <summary>
     /// Decreases the livestock by one.
     /// </summary>
     public void DecreaseStock()
     {
-        lives--;
-        if (lives < 0) lives = 0;
+        _lives--;
+        if (lives < 0) _lives = 0;
     }
     
     /// <summary>
@@ -192,30 +331,30 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void DecreaseStock(int amount)
     {
-        lives -= amount;
-        if (lives < 0) lives = 0;
+        _lives -= amount;
+        if (lives < 0) _lives = 0;
     }
 
     /// <summary>
     /// Resets the livestock.
     /// </summary>
-    public void ResetStock() { lives = defaultLives; }
+    public void ResetStock() { _lives = defaultLives; }
 
     /// <summary>
     /// Starts the timer.
     /// </summary>
-    public void StartTimer() { timerStarted = true; }
+    public void StartTimer() { _timerStarted = true; }
 
     /// <summary>
     /// Stops the timer.
     /// </summary>
-    public void StopTimer() { timerStarted = false; }
+    public void StopTimer() { _timerStarted = false; }
 
     /// <summary>
     /// Adds the timer with the specified time.
     /// </summary>
     /// <param name="seconds">Seconds to add.</param>
-    public void AddTimer(float seconds) { timer += seconds; }
+    public void AddTimer(float seconds) { _timer += seconds; }
 
     /// <summary>
     /// Resets the timer with the time specified in defaultTimer.
@@ -223,7 +362,98 @@ public class GameManager : MonoBehaviour
     /// </summary>
     public void ResetTimer()
     {
-        timerStarted = false;
-        timer = defaultTime;
+        _timerStarted = false;
+        _timer = defaultTime;
     }
+
+    public void StartGameplay()
+    {
+        StartTimer();
+        isPlaying = true;
+    }
+
+    public void ResumeGameplay()
+    {
+        StartTimer();
+        Time.timeScale = 1f;
+    }
+
+    public void PauseGameplay()
+    {
+        StopTimer();
+        Time.timeScale = 0f;
+    }
+
+    public IEnumerator FinishLevel()
+    {
+        StopTimer();
+        isPlaying = false;
+        // TODO: add score based on time
+        // _score += "???"
+        // temporary
+        _score = _gates * 2000 + _stars * 1000 + _coins * 100 + (Mathf.FloorToInt(_timer) * 10);
+
+        // save data
+        UserDataManager.Instance.SetStageClearedStatus(_stage, true);
+        UserDataManager.Instance.SetStageStars(_stage, _stars);
+        UserDataManager.Instance.SetStageCoins(_stage, _coins);
+        UserDataManager.Instance.SetStageScore(_stage, _score);
+        UserDataManager.Instance.SaveData();
+
+        OverlayManager.Instance.ToggleFinishAnnouncer();
+
+        yield return new WaitForSeconds(2f);
+        isCompleted = true;
+    }
+
+    public IEnumerator Failed()
+    {
+        isPlaying = false;
+        OverlayManager.Instance.ToggleFailedAnnouncer();
+
+        yield return new WaitForSeconds(2f);
+        isFailed = true;
+    }
+
+    /// <summary>
+    /// Unlocks invulnerability mode for player.
+    /// </summary>
+    public void invulnUnlock() { _invulnUnlock = true; }
+
+    /// <summary>
+    /// Manages the gameplay activation of invulnerability mode.
+    /// </summary>
+    public void invulnManager(bool on) { 
+        if(on == true) _zenMode = true; 
+        else if(on == false) _zenMode = false;
+    }
+
+    /// <summary>
+    /// Sets ball mass.
+    /// </summary>
+    public void setMass(float mass) { _mass = mass; }
+
+    /// <summary>
+    /// Unlocks coin magnet mode for player.
+    /// </summary>
+    public void magnetUnlock() { _magnetUnlock = true; }
+
+    /// <summary>
+    /// Manages the gameplay activation of coin magnet mode.
+    /// </summary>
+    public void magnetManaget(bool on)
+    {
+        if (on == true) _magnetOn = true;
+        else if (on == false) _magnetOn = false;
+    }
+
+    /// <summary>
+    /// Sets the coin magnet level.
+    /// </summary>
+    public void setMagnetLevel(int level) { _coinMagnetLevel = level; }
+
+    /// <summary>
+    /// Gets the coin magnet level.
+    /// </summary>
+    public int getMagnetLevel() { return _coinMagnetLevel; }
 }

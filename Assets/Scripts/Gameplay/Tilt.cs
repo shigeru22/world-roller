@@ -4,49 +4,46 @@ using UnityEngine;
 
 public class Tilt : MonoBehaviour
 {
-    [SerializeField] Transform worldObject;
-    [SerializeField] Transform ballObject;
     [SerializeField] float tiltSpeed;
-
-    void Start()
-    {
-        GameObject temp = new GameObject();
-        temp.gameObject.name = "Tilter";
-
-        if (worldObject == null)
-        {
-            // assume this object
-            worldObject = GetComponent<Transform>();
-        }
-
-        if(ballObject == null)
-        {
-            // find "ball" or "sphere" later
-        }
-
-        gameObject.transform.parent = temp.transform;
-        
-
-        Vector3 angle = temp.transform.localEulerAngles;
-        angle.x -= 10f;
-        angle.z -= 10f;
-        temp.transform.localEulerAngles = angle;
-        ballObject.transform.parent = temp.transform;
-
-        // Debug.Log($"Target object rotation: {worldObject.localEulerAngles.x}, {worldObject.localEulerAngles.y}, {worldObject.localEulerAngles.z}");
-    }
 
     void Update()
     {
-        Vector3 temp = worldObject.localEulerAngles;
+        float horizontal, vertical, tilt;
+        int rotation = (int)Mathf.Abs(GameManager.Instance.worldRotation / 90f % 4f);
 
-        temp.x = Mathf.Lerp(temp.x, InputManager.Instance.vertical * 10, 0.5f);
-        temp.z = Mathf.Lerp(temp.z, -InputManager.Instance.horizontal * 10, 0.5f);
-        temp.x += 5f;
-        temp.z += 5f;
+        if(GameManager.Instance.isPlaying)
+        {
+            if (InputManager.Instance.damp) tilt = 40f;
+            else tilt = 20f;
+            if (rotation == 1)
+            {
+                horizontal = InputManager.Instance.vertical * tilt;
+                vertical = InputManager.Instance.horizontal * tilt;
+            }
+            else if (rotation == 2)
+            {
+                horizontal = InputManager.Instance.horizontal * tilt;
+                vertical = -InputManager.Instance.vertical * tilt;
+            }
+            else if (rotation == 3)
+            {
+                // 90
+                horizontal = -InputManager.Instance.vertical * tilt;
+                vertical = -InputManager.Instance.horizontal * tilt;
+            }
+            else
+            {
+                horizontal = -InputManager.Instance.horizontal * tilt;
+                vertical = InputManager.Instance.vertical * tilt;
+            }
+        }
+        else
+        {
+            horizontal = 0f;
+            vertical = 0f;
+        }
 
-        worldObject.localEulerAngles = temp;
-
-        // Debug.Log(temp);
+        Quaternion target = Quaternion.Euler(vertical, 0, horizontal);
+        transform.rotation = Quaternion.Slerp(transform.rotation, target, Time.deltaTime * tiltSpeed);
     }
 }

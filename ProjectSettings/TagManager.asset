@@ -6,6 +6,10 @@ TagManager:
   tags:
   - Gate
   - Collectible
+  - SpawnPoint
+  - UIPause
+  - FinalGate
+  - Lift
   layers:
   - Default
   - TransparentFX
