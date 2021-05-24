@@ -7,7 +7,7 @@ public class TimeMod : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.Instance.defaultTime = 300;
+        GameManager.Instance.defaultTime = 325;
     }
 
     // Update is called once per frame
