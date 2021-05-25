@@ -125,6 +125,16 @@ public class UserDataManager : MonoBehaviour
     }
 
     /// <summary>
+    /// Adds coins to user data.
+    /// </summary>
+    /// <param name="coins">Number of coins to be added.</param>
+    public void AddUserCoins(int coins)
+    {
+        if (coins <= 0) return;
+        _data.coins += coins;
+    }
+
+    /// <summary>
     /// Sets target stage's cleared status.
     /// </summary>
     /// <param name="stage">Target stage (from 1 to total stages)</param>

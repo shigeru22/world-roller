@@ -37,6 +37,8 @@ public class GameManager : MonoBehaviour
     private bool _magnetOn; // coin magnet powerup
     private int _coinMagnetLevel; // coin magnet level
 
+    bool isSaved;
+
     /// <summary>
     /// Returns current playing status.
     /// Usually used for scene checks.
@@ -157,7 +159,7 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
-        
+        isSaved = false;
     }
 
     void Update()
@@ -184,6 +186,7 @@ public class GameManager : MonoBehaviour
         isPaused = false;
         isCompleted = false;
         isFailed = false;
+        isSaved = false;
         ResetCoin();
         ResetStar();
         ResetGate();
@@ -394,13 +397,18 @@ public class GameManager : MonoBehaviour
         _score = _gates * 2000 + _stars * 1000 + _coins * 100 + (Mathf.FloorToInt(_timer) * 10);
 
         // save data
-        UserDataManager.Instance.SetStageClearedStatus(_stage, true);
-        UserDataManager.Instance.SetStageStars(_stage, _stars);
-        UserDataManager.Instance.SetStageCoins(_stage, _coins);
-        UserDataManager.Instance.SetStageScore(_stage, _score);
-        UserDataManager.Instance.SaveData();
+        if(!isSaved)
+        {
+            UserDataManager.Instance.SetStageClearedStatus(_stage, true);
+            UserDataManager.Instance.SetStageStars(_stage, _stars);
+            UserDataManager.Instance.SetStageCoins(_stage, _coins);
+            UserDataManager.Instance.SetStageScore(_stage, _score);
+            UserDataManager.Instance.AddUserCoins(_coins);
+            UserDataManager.Instance.SaveData();
 
-        OverlayManager.Instance.ToggleFinishAnnouncer();
+            OverlayManager.Instance.ToggleFinishAnnouncer();
+            isSaved = true;
+        }
 
         yield return new WaitForSeconds(2f);
         isCompleted = true;

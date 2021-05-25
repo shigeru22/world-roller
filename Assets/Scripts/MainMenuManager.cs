@@ -138,6 +138,7 @@ public class MainMenuManager : MonoBehaviour
         {
             if (type == button.GetPowerupType())
             {
+                Debug.Log("Unlocked");
                 button.UnlockPowerup();
                 break;
             }

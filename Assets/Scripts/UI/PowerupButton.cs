@@ -14,7 +14,7 @@ public class PowerupButton : MonoBehaviour
     {
         background = GetComponent<Image>();
         GetComponent<Button>().onClick.AddListener(PowerupAction);
-        locked = true;
+        locked = false;
     }
 
     void PowerupAction()
