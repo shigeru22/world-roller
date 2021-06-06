@@ -261,7 +261,7 @@ public class GameManager : MonoBehaviour
     public void AddStar()
     {
         _stars++;
-        AudioManager.Instance.PlaySound(AudioStore.Stars);
+        // AudioManager.Instance.PlaySound(AudioStore.Stars);
     }
 
     /// <summary>
@@ -275,7 +275,7 @@ public class GameManager : MonoBehaviour
     public void AddCoin()
     {
         _coins++;
-        AudioManager.Instance.PlaySound(AudioStore.Coins);
+        // AudioManager.Instance.PlaySound(AudioStore.Coins);
     }
 
     /// <summary>

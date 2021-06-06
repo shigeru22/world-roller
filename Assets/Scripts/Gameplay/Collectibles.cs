@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class Collectibles : MonoBehaviour
 {
-    [SerializeField] private CollectibleTypes collectibleType;
+    [SerializeField] CollectibleTypes collectibleType;
+    [SerializeField] AudioSource sfx;
     private bool _catched;
     Animator anim;
 
@@ -40,6 +41,7 @@ public class Collectibles : MonoBehaviour
     {
         _catched = true;
         anim.SetBool("Catched", true);
+        sfx.Play();
     }
 
     void Disappear()

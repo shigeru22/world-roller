@@ -8,7 +8,6 @@ public class Ball : MonoBehaviour
     float fallTime;
     bool count;
     public int checkpointGates;
-    int gateCrossed = 0;
     public GameObject finalGate;
     public GameObject spawnPoint;
 
@@ -140,15 +139,13 @@ public class Ball : MonoBehaviour
             else if (other.gameObject.tag.Equals("Gate"))
             {
                 // Debug.Log("Gate hit");
-                AudioManager.Instance.PlaySound(AudioStore.Success);
-                other.GetComponent<BoxCollider>().enabled = false;
+                Gate temp = other.GetComponent<Gate>();
 
-                // change color programatically
-                // Debug.Log(other.GetComponentInChildren<StatusCube>().gameObject.name);
-                other.GetComponentInChildren<StatusCube>().ChangeColor();
-
-                GameManager.Instance.AddGate();
-                gateCrossed++;
+                if (!temp.entered)
+                {
+                    temp.EnterGate();
+                    GameManager.Instance.AddGate();
+                }
             }
             else if (other.gameObject.tag.Equals("FinalGate"))
             {
