@@ -120,39 +120,42 @@ public class Ball : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Debug.Log(other.gameObject.name);
-        if(other.gameObject.tag.Equals("Collectible"))
+        if(GameManager.Instance.isPlaying)
         {
-            Collectibles temp = other.GetComponent<Collectibles>();
-            CollectibleTypes type = temp.type;
-
-            if(!temp.catched)
+            // Debug.Log(other.gameObject.name);
+            if (other.gameObject.tag.Equals("Collectible"))
             {
-                if (type == CollectibleTypes.Coin) GameManager.Instance.AddCoin();
-                else if (type == CollectibleTypes.Star) GameManager.Instance.AddStar();
-                else throw new InvalidObjectException($"{gameObject.name} triggered {other.gameObject.name} collectible");
+                Collectibles temp = other.GetComponent<Collectibles>();
+                CollectibleTypes type = temp.type;
 
-                temp.CatchObject();
+                if (!temp.catched)
+                {
+                    if (type == CollectibleTypes.Coin) GameManager.Instance.AddCoin();
+                    else if (type == CollectibleTypes.Star) GameManager.Instance.AddStar();
+                    else throw new InvalidObjectException($"{gameObject.name} triggered {other.gameObject.name} collectible");
+
+                    temp.CatchObject();
+                }
             }
-        }
-        else if (other.gameObject.tag.Equals("Gate"))
-        {
-            // Debug.Log("Gate hit");
-            AudioManager.Instance.PlaySound(AudioStore.Success);
-            other.GetComponent<BoxCollider>().enabled = false;
+            else if (other.gameObject.tag.Equals("Gate"))
+            {
+                // Debug.Log("Gate hit");
+                AudioManager.Instance.PlaySound(AudioStore.Success);
+                other.GetComponent<BoxCollider>().enabled = false;
 
-            // change color programatically
-            // Debug.Log(other.GetComponentInChildren<StatusCube>().gameObject.name);
-            other.GetComponentInChildren<StatusCube>().ChangeColor();
+                // change color programatically
+                // Debug.Log(other.GetComponentInChildren<StatusCube>().gameObject.name);
+                other.GetComponentInChildren<StatusCube>().ChangeColor();
 
-            GameManager.Instance.AddGate();
-            gateCrossed++;
-        }
-        else if(other.gameObject.tag.Equals("FinalGate"))
-        {
-            // show results
-            AudioManager.Instance.PlaySound(AudioStore.Complete);
-            StartCoroutine(GameManager.Instance.FinishLevel());
+                GameManager.Instance.AddGate();
+                gateCrossed++;
+            }
+            else if (other.gameObject.tag.Equals("FinalGate"))
+            {
+                // show results
+                AudioManager.Instance.PlaySound(AudioStore.Complete);
+                StartCoroutine(GameManager.Instance.FinishLevel());
+            }
         }
     }
 }
