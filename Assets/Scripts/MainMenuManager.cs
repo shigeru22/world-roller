@@ -15,13 +15,17 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] Button[] stages;
     [SerializeField] Transform stagesHolder;
 
-    [SerializeField] PowerupButton[] powerups;
     [SerializeField] UpgradeScript unlockerWindow;
+    [SerializeField] PowerupButton hyperspeedButton;
+    [SerializeField] PowerupButton magnetButton;
+    [SerializeField] PowerupButton zenButton;
     
     bool isBlocked;
     float timer;
     float duration;
     int selectedStage;
+
+    public Powerup[] buttonTypes { get; private set; }
 
     public bool isSelectingEnabled
     {
@@ -75,13 +79,6 @@ public class MainMenuManager : MonoBehaviour
         else Debug.LogWarning("What are you doing?");
     }
 
-    public void LoadPowerupUnlockData()
-    {
-        if (UserDataManager.Instance.data.powerups.hyperspeedMode) UnlockPowerup(Powerup.Hyperspeed);
-        if (UserDataManager.Instance.data.powerups.magnetMode) UnlockPowerup(Powerup.Magnet);
-        if (UserDataManager.Instance.data.powerups.zenMode) UnlockPowerup(Powerup.Zen);
-    }
-
     public void RunAnimation(string animation, float pauseButtonDuration)
     {
         if(!animation.Equals(string.Empty)) menuAnimator.SetTrigger(animation);
@@ -127,21 +124,23 @@ public class MainMenuManager : MonoBehaviour
         SceneSwitcher.SwitchScene((Scenes)target);
     }
 
+    public void UnlockHyperspeedMode()
+    {
+        hyperspeedButton.UnlockPowerup();
+    }
+
+    public void UnlockMagnetMode()
+    {
+        magnetButton.UnlockPowerup();
+    }
+
+    public void UnlockZenMode()
+    {
+        zenButton.UnlockPowerup();
+    }
+
     public void UnlockPowerupWindow(Powerup type)
     {
         unlockerWindow.ToggleWindow(type);
-    }
-
-    public void UnlockPowerup(Powerup type)
-    {
-        foreach (PowerupButton button in powerups)
-        {
-            if (type == button.GetPowerupType())
-            {
-                Debug.Log("Unlocked");
-                button.UnlockPowerup();
-                break;
-            }
-        }
     }
 }

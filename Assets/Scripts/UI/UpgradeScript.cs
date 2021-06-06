@@ -31,21 +31,24 @@ public class UpgradeScript : MonoBehaviour
         {
             coins -= UnlockPrices.HyperspeedMode;
             UserDataManager.Instance.data.powerups.hyperspeedMode = true;
+            MainMenuManager.Instance.UnlockHyperspeedMode();
         }
         else if (type == Powerup.Magnet)
         {
             coins -= UnlockPrices.MagnetMode;
             UserDataManager.Instance.data.powerups.magnetMode = true;
+            MainMenuManager.Instance.UnlockMagnetMode();
         }
         else if (type == Powerup.Zen)
         {
             coins -= UnlockPrices.ZenMode;
             UserDataManager.Instance.data.powerups.zenMode = true;
+            MainMenuManager.Instance.UnlockZenMode();
         }
         UserDataManager.Instance.data.coins = coins;
         UserDataManager.Instance.SaveData();
 
-        MainMenuManager.Instance.UnlockPowerup(type);
+        NoAction();
     }
 
     void NoAction()
@@ -74,7 +77,16 @@ public class UpgradeScript : MonoBehaviour
         unlockPriceText.text = price.ToString();
         currentCoinsText.text = UserDataManager.Instance.data.coins.ToString();
         SetInteractable(true);
-        if (UserDataManager.Instance.data.coins < price) yesButton.interactable = false;
+        if (UserDataManager.Instance.data.coins < price)
+        {
+            currentCoinsText.color = Color.red;
+            yesButton.interactable = false;
+        }
+        else
+        {
+            currentCoinsText.color = Color.black;
+            yesButton.interactable = true;
+        }
 
         anim.SetTrigger("Toggle");
     }

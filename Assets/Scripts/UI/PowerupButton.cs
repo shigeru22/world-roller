@@ -8,13 +8,14 @@ public class PowerupButton : MonoBehaviour
     [SerializeField] Powerup type;
     [SerializeField] Image lockedPowerup;
     Image background;
-    bool locked;
+
+    public Powerup powerupType { get { return type; } }
+    bool locked = true;
 
     void Start()
     {
         background = GetComponent<Image>();
         GetComponent<Button>().onClick.AddListener(PowerupAction);
-        locked = false;
     }
 
     void PowerupAction()
@@ -66,16 +67,11 @@ public class PowerupButton : MonoBehaviour
         else MainMenuManager.Instance.UnlockPowerupWindow(type);
     }
 
-    public Powerup GetPowerupType()
-    {
-        return type;
-    }
-
     public void UnlockPowerup()
     {
         if (type == Powerup.Button) throw new InvalidObjectException("Object must be powerup buttons, not window toggle button");
 
         locked = false;
-        lockedPowerup.enabled = false;
+        lockedPowerup.GetComponent<Image>().enabled = false;
     }
 }

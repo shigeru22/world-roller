@@ -63,7 +63,9 @@ public class UserDataManager : MonoBehaviour
     {
         yield return new WaitUntil(() => InputManager.Instance != null && MainMenuManager.Instance != null);
         InputManager.Instance.LoadInputSettings();
-        MainMenuManager.Instance.LoadPowerupUnlockData();
+        if (_data.powerups.hyperspeedMode) MainMenuManager.Instance.UnlockHyperspeedMode();
+        if (_data.powerups.magnetMode) MainMenuManager.Instance.UnlockMagnetMode();
+        if (_data.powerups.zenMode) MainMenuManager.Instance.UnlockZenMode();
     }
 
     void VerifyInputButtons()
