@@ -5,8 +5,6 @@ using System;
 
 public class Ball : MonoBehaviour
 {
-    float fallTime;
-    bool count;
     public int checkpointGates;
     public GameObject finalGate;
     public GameObject spawnPoint;
@@ -17,9 +15,6 @@ public class Ball : MonoBehaviour
 
     void Start()
     {
-        fallTime = 0f;
-        count = false;
-
         if(!GameManager.Instance.isPlaying)
         {
             GameManager.Instance.ResetScore();
@@ -59,19 +54,8 @@ public class Ball : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        if (count) fallTime += Time.fixedDeltaTime;
-    }
-
     private void Update()
     {
-        /*if (gateCrossed == checkpointGates)
-        {
-            Instantiate(finalGate, new Vector3 (1,1.8f,14), Quaternion.Euler(-90,0,0));
-            gateCrossed = 0;
-        }*/
-
         int layerMask = 1 << 6;
 
         layerMask = ~layerMask;
@@ -113,32 +97,34 @@ public class Ball : MonoBehaviour
         }
     }
 
-    void OnCollisionExit(Collision collision)
-    {
-        fallTime = 0;
-        count = true;
-    }
-
     void OnTriggerEnter(Collider other)
     {
         if(GameManager.Instance.isPlaying)
         {
             // Debug.Log(other.gameObject.name);
-            if (other.gameObject.tag.Equals("Collectible"))
+            if (other.gameObject.CompareTag("Collectible"))
             {
                 Collectibles temp = other.GetComponent<Collectibles>();
                 CollectibleTypes type = temp.type;
 
                 if (!temp.catched)
                 {
-                    if (type == CollectibleTypes.Coin) GameManager.Instance.AddCoin();
-                    else if (type == CollectibleTypes.Star) GameManager.Instance.AddStar();
+                    if (type == CollectibleTypes.Coin)
+                    {
+                        GameManager.Instance.AddCoin();
+                        GameManager.Instance.IncreaseScore(100);
+                    }
+                    else if (type == CollectibleTypes.Star)
+                    {
+                        GameManager.Instance.AddStar();
+                        GameManager.Instance.IncreaseScore(1000);
+                    }
                     else throw new InvalidObjectException($"{gameObject.name} triggered {other.gameObject.name} collectible");
 
                     temp.CatchObject();
                 }
             }
-            else if (other.gameObject.tag.Equals("Gate"))
+            else if (other.gameObject.CompareTag("Gate"))
             {
                 // Debug.Log("Gate hit");
                 Gate temp = other.GetComponent<Gate>();
@@ -147,9 +133,10 @@ public class Ball : MonoBehaviour
                 {
                     temp.EnterGate();
                     GameManager.Instance.AddGate();
+                    GameManager.Instance.IncreaseScore(2000);
                 }
             }
-            else if (other.gameObject.tag.Equals("FinalGate"))
+            else if (other.gameObject.CompareTag("FinalGate"))
             {
                 // show results
                 AudioManager.Instance.PlaySound(AudioStore.Complete);

@@ -400,11 +400,18 @@ public class GameManager : MonoBehaviour
         if(!isSaved)
         {
             UserDataManager.Instance.SetStageClearedStatus(_stage, true);
-            UserDataManager.Instance.SetStageStars(_stage, _stars);
-            UserDataManager.Instance.SetStageCoins(_stage, _coins);
-            UserDataManager.Instance.SetStageScore(_stage, _score);
+
+            Debug.Log($"[before save] score: {UserDataManager.Instance.data.stages[_stage - 1].score}, stars: {UserDataManager.Instance.data.stages[_stage - 1].stars}, coins: {UserDataManager.Instance.data.stages[_stage - 1].coins}");
+
+            // high score check
+            if (_score > UserDataManager.Instance.data.stages[_stage - 1].score) UserDataManager.Instance.SetStageScore(_stage, _score);
+            if (_stars > UserDataManager.Instance.data.stages[_stage - 1].stars) UserDataManager.Instance.SetStageStars(_stage, _stars);
+            if (_coins > UserDataManager.Instance.data.stages[_stage - 1].coins) UserDataManager.Instance.SetStageCoins(_stage, _coins);
+
             UserDataManager.Instance.AddUserCoins(_coins);
             UserDataManager.Instance.SaveData();
+
+            Debug.Log($"[after save] score: {UserDataManager.Instance.data.stages[_stage - 1].score}, stars: {UserDataManager.Instance.data.stages[_stage - 1].stars}, coins: {UserDataManager.Instance.data.stages[_stage - 1].coins}");
 
             OverlayManager.Instance.ToggleFinishAnnouncer();
             isSaved = true;
