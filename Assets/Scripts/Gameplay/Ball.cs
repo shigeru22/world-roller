@@ -89,6 +89,8 @@ public class Ball : MonoBehaviour
             {
                 this.transform.position = spawnPoint.transform.position;
                 rigid.velocity = new Vector3(0, 0, 0);
+                rigid.angularVelocity = new Vector3(0, 0, 0);
+                Debug.Log(rigid.velocity);
             }
             // Debug.LogError("Did not Hit");
         }
