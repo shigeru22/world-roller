@@ -16,7 +16,7 @@ public class Init : MonoBehaviour
 
     void Update()
     {
-        if(rigid.velocity.sqrMagnitude < 0.1f)
+        if(rigid.velocity.sqrMagnitude < 1f)
         {
             rigid.AddForce(force);
         }
