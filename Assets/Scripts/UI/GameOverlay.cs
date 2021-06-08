@@ -9,8 +9,8 @@ public class GameOverlay : MonoBehaviour
     [SerializeField] Text starCounter;
     [SerializeField] GameObject hyperspeedMode;
 
-    [SerializeField] Transform coinUIObject;
-    [SerializeField] Transform starUIObject;
+    // [SerializeField] Transform coinUIObject;
+    // [SerializeField] Transform starUIObject;
 
     [SerializeField] Vector3 coinRelativeToCamera;
     [SerializeField] Vector3 starRelativeToCamera;
@@ -21,12 +21,12 @@ public class GameOverlay : MonoBehaviour
         GetComponent<Canvas>().worldCamera = Camera.main;
 
         // set as its parent
-        coinUIObject.parent = Camera.main.transform;
-        starUIObject.parent = Camera.main.transform;
+        // coinUIObject.parent = Camera.main.transform;
+        // starUIObject.parent = Camera.main.transform;
 
         // set position relative to its parent
-        coinUIObject.localPosition = coinRelativeToCamera;
-        starUIObject.localPosition = starRelativeToCamera;
+        // coinUIObject.localPosition = coinRelativeToCamera;
+        // starUIObject.localPosition = starRelativeToCamera;
     }
 
     void Update()
