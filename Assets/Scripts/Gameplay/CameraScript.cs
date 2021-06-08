@@ -82,11 +82,11 @@ public class CameraScript : MonoBehaviour
                 {
                     if (InputManager.Instance.vertical > 0f)
                     {
-                        temp.x += 45f;
+                        temp.x += 30f;
                     }
                     else if (InputManager.Instance.vertical < 0f)
                     {
-                        temp.x -= 45f;
+                        temp.x -= 30f;
                     }
                 }
                 currentRotation = Quaternion.Slerp(currentRotation, Quaternion.Euler(temp), 0.05f);
