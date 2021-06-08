@@ -19,6 +19,9 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] PowerupButton hyperspeedButton;
     [SerializeField] PowerupButton magnetButton;
     [SerializeField] PowerupButton zenButton;
+
+    [SerializeField] Text[] highScores;
+    [SerializeField] StarsCounter[] starCounters;
     
     bool isBlocked;
     float timer;
@@ -142,5 +145,16 @@ public class MainMenuManager : MonoBehaviour
     public void UnlockPowerupWindow(Powerup type)
     {
         unlockerWindow.ToggleWindow(type);
+    }
+
+    public void SetStars(int stage, int stars)
+    {
+        starCounters[stage].SetStars(stars);
+    }
+
+    public void SetHighScore(int stage, int score)
+    {
+        if (score < 0) score = 0;
+        highScores[stage].text = score.ToString();
     }
 }

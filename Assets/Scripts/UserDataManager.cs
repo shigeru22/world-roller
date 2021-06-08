@@ -66,6 +66,17 @@ public class UserDataManager : MonoBehaviour
         if (_data.powerups.hyperspeedMode) MainMenuManager.Instance.UnlockHyperspeedMode();
         if (_data.powerups.magnetMode) MainMenuManager.Instance.UnlockMagnetMode();
         if (_data.powerups.zenMode) MainMenuManager.Instance.UnlockZenMode();
+        SetStagesData();
+    }
+
+    void SetStagesData()
+    {
+        int len = _data.stages.Length;
+        for (int i = 0; i < len; i++)
+        {
+            MainMenuManager.Instance.SetHighScore(i, _data.stages[i].score);
+            MainMenuManager.Instance.SetStars(i, _data.stages[i].stars);
+        }
     }
 
     void VerifyInputButtons()
