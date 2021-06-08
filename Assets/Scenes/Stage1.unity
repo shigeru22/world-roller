@@ -12505,6 +12505,7 @@ GameObject:
   - component: {fileID: 396647408}
   - component: {fileID: 396647410}
   - component: {fileID: 396647409}
+  - component: {fileID: 396647411}
   m_Layer: 0
   m_Name: Level
   m_TagString: Untagged
@@ -12555,6 +12556,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiltSpeed: 3
+--- !u!114 &396647411
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 396647407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db61cd48791bdec4398c52ea3363d1c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &397869904
 PrefabInstance:
   m_ObjectHideFlags: 0
