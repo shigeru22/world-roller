@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class MaskDetection : MonoBehaviour
@@ -33,7 +31,7 @@ public class MaskDetection : MonoBehaviour
 
     public void SwitchTarget(MainMenuTypes target)
     {
-        if(!current.Equals(MainMenuTypes.Main))
+        if (!current.Equals(MainMenuTypes.Main))
         {
             if (target.Equals(MainMenuTypes.Main))
             {
@@ -41,7 +39,6 @@ public class MaskDetection : MonoBehaviour
                 else if (current.Equals(MainMenuTypes.Options)) this.target = optionsWindow;
                 else if (current.Equals(MainMenuTypes.Credits)) this.target = creditsWindow;
                 current = MainMenuTypes.Main;
-                // Debug.Log(this.target.gameObject.name);
             }
             else Debug.LogError("Can't open other section while this section is still open.");
         }

@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -153,8 +152,6 @@ public class GameManager : MonoBehaviour
             instance = this;
             DontDestroyOnLoad(gameObject);
         }
-
-        // Debug.Log($"Default lives: {defaultLives}, time: {defaultTime}");
     }
 
     void Start()
@@ -167,7 +164,7 @@ public class GameManager : MonoBehaviour
         if (_timerStarted)
         {
             _timer -= Time.deltaTime;
-        
+
             if (timer < 0f)
             {
                 StopTimer();
@@ -299,7 +296,6 @@ public class GameManager : MonoBehaviour
     /// <param name="amount">Amount of health to be decreased.</param>
     public void DecreaseHealth(float amount)
     {
-        Debug.Log($"Decreasing health by {amount}.");
         _health -= amount;
         if (health < 0f) _health = 0f;
     }
@@ -328,7 +324,7 @@ public class GameManager : MonoBehaviour
         _lives--;
         if (lives < 0) _lives = 0;
     }
-    
+
     /// <summary>
     /// Decreases the livestock by the specified amount.
     /// </summary>
@@ -397,21 +393,16 @@ public class GameManager : MonoBehaviour
         _score = _gates * 2000 + _stars * 1000 + _coins * 100 + (Mathf.FloorToInt(_timer) * 10);
 
         // save data
-        if(!isSaved)
+        if (!isSaved)
         {
             UserDataManager.Instance.SetStageClearedStatus(_stage, true);
 
-            Debug.Log($"[before save] score: {UserDataManager.Instance.data.stages[_stage - 1].score}, stars: {UserDataManager.Instance.data.stages[_stage - 1].stars}, coins: {UserDataManager.Instance.data.stages[_stage - 1].coins}");
-
-            // high score check
             if (_score > UserDataManager.Instance.data.stages[_stage - 1].score) UserDataManager.Instance.SetStageScore(_stage, _score);
             if (_stars > UserDataManager.Instance.data.stages[_stage - 1].stars) UserDataManager.Instance.SetStageStars(_stage, _stars);
             if (_coins > UserDataManager.Instance.data.stages[_stage - 1].coins) UserDataManager.Instance.SetStageCoins(_stage, _coins);
 
             UserDataManager.Instance.AddUserCoins(_coins);
             UserDataManager.Instance.SaveData();
-
-            Debug.Log($"[after save] score: {UserDataManager.Instance.data.stages[_stage - 1].score}, stars: {UserDataManager.Instance.data.stages[_stage - 1].stars}, coins: {UserDataManager.Instance.data.stages[_stage - 1].coins}");
 
             OverlayManager.Instance.ToggleFinishAnnouncer();
             isSaved = true;
@@ -438,9 +429,10 @@ public class GameManager : MonoBehaviour
     /// <summary>
     /// Manages the gameplay activation of invulnerability mode.
     /// </summary>
-    public void invulnManager(bool on) { 
-        if(on == true) _zenMode = true; 
-        else if(on == false) _zenMode = false;
+    public void invulnManager(bool on)
+    {
+        if (on == true) _zenMode = true;
+        else if (on == false) _zenMode = false;
     }
 
     /// <summary>

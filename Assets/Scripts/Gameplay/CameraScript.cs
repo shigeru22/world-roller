@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 // [ExecuteAlways] // apply changes directly both in edit and play mode
@@ -27,13 +25,13 @@ public class CameraScript : MonoBehaviour
     void Awake()
     {
         Camera temp = GetComponent<Camera>();
-        if(!temp)
+        if (!temp)
         {
             Debug.LogError("Object is not camera or doesn't contain Camera component.");
             isCamera = false;
         }
 
-        if(isCamera)
+        if (isCamera)
         {
             // GameManager.Instance.ResetWorldRotation();
             if (transform.localRotation != Quaternion.Euler(Vector3.zero)) throw new InvalidValueException("Rotation value must be Vector3.zero (0, 0, 0)");
@@ -59,7 +57,7 @@ public class CameraScript : MonoBehaviour
 
     void LateUpdate()
     {
-        if(isCamera)
+        if (isCamera)
         {
             if (target)
             {

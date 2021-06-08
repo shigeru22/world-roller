@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,7 +20,7 @@ public class MainMenuManager : MonoBehaviour
 
     [SerializeField] Text[] highScores;
     [SerializeField] StarsCounter[] starCounters;
-    
+
     bool isBlocked;
     float timer;
     float duration;
@@ -42,7 +40,7 @@ public class MainMenuManager : MonoBehaviour
     void Awake()
     {
         if (stages.Length == 0) Debug.LogError("No stages specified. Add them in the inspector.");
-        
+
         if (instance != null && instance != this) Destroy(gameObject);
         else instance = this;
     }
@@ -55,10 +53,10 @@ public class MainMenuManager : MonoBehaviour
 
     void Update()
     {
-        if(isBlocked)
+        if (isBlocked)
         {
             timer += Time.deltaTime;
-            if(timer >= duration)
+            if (timer >= duration)
             {
                 isBlocked = false;
                 timer = 0f;
@@ -66,7 +64,7 @@ public class MainMenuManager : MonoBehaviour
         }
 
         // Debug.Log($"holder = {stagesHolder.localPosition.x}, target to {selectedStage} = {selectedStage * 500f}");
-        if(stagesHolder.localPosition.x != selectedStage * 500f) stagesHolder.localPosition = Vector3.Lerp(stagesHolder.localPosition, Vector3.right * selectedStage * -500f, 0.5f);
+        if (stagesHolder.localPosition.x != selectedStage * 500f) stagesHolder.localPosition = Vector3.Lerp(stagesHolder.localPosition, Vector3.right * selectedStage * -500f, 0.5f);
     }
 
     void SelectStage(int target)
@@ -84,7 +82,7 @@ public class MainMenuManager : MonoBehaviour
 
     public void RunAnimation(string animation, float pauseButtonDuration)
     {
-        if(!animation.Equals(string.Empty)) menuAnimator.SetTrigger(animation);
+        if (!animation.Equals(string.Empty)) menuAnimator.SetTrigger(animation);
         BlockTimer(pauseButtonDuration);
     }
 

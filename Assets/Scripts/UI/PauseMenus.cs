@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -17,20 +15,20 @@ public class PauseMenus : MonoBehaviour
 
     void OnClick()
     {
-        if(!OverlayManager.Instance.blocked)
+        if (!OverlayManager.Instance.blocked)
         {
-            if(buttonType == PauseMenuTypes.Resume)
+            if (buttonType == PauseMenuTypes.Resume)
             {
                 OverlayManager.Instance.TogglePause();
             }
-            else if(buttonType == PauseMenuTypes.Retry)
+            else if (buttonType == PauseMenuTypes.Retry)
             {
                 GameManager.Instance.ResumeGameplay();
                 GameManager.Instance.ResetAllStatus();
                 OverlayManager.Instance.DestroyObject();
                 SceneSwitcher.SwitchScene(GameManager.Instance.stageNumber);
             }
-            else if(buttonType == PauseMenuTypes.Exit)
+            else if (buttonType == PauseMenuTypes.Exit)
             {
                 GameManager.Instance.ResumeGameplay();
                 GameManager.Instance.ResetAllStatus();

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -15,6 +13,6 @@ public class CreditsButton : MonoBehaviour
     void closeCredits()
     {
         MainMenuManager.Instance.canvasDetector.SwitchTarget(MainMenuTypes.Main);
-        MainMenuManager.Instance.RunAnimation("ExitCredits",0.5f);
+        MainMenuManager.Instance.RunAnimation("ExitCredits", 0.5f);
     }
 }

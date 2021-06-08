@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Collectibles : MonoBehaviour
@@ -12,7 +10,7 @@ public class Collectibles : MonoBehaviour
     /// <summary>
     /// Returns collectible type.
     /// </summary>
-    public CollectibleTypes type {  get { return collectibleType; } }
+    public CollectibleTypes type { get { return collectibleType; } }
 
     /// <summary>
     /// Returns catched status.

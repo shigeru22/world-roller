@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Tilt : MonoBehaviour
@@ -11,7 +9,7 @@ public class Tilt : MonoBehaviour
         float horizontal, vertical, tilt;
         int rotation = (int)Mathf.Abs(GameManager.Instance.worldRotation / 90f % 4f);
 
-        if(GameManager.Instance.isPlaying)
+        if (GameManager.Instance.isPlaying)
         {
             if (InputManager.Instance.damp) tilt = 40f;
             else tilt = 20f;

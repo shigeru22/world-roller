@@ -1,6 +1,5 @@
-using System.IO;
 using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 public class UserDataManager : MonoBehaviour
@@ -30,13 +29,13 @@ public class UserDataManager : MonoBehaviour
         }
 
         // check if file doesn't exist
-        if(!File.Exists(dataPath))
+        if (!File.Exists(dataPath))
         {
             _data = new SaveData();
 
             // append default settings
             int len = _data.stages.Length;
-            for(int i = 0; i < len; i++)
+            for (int i = 0; i < len; i++)
             {
                 _data.stages[i].cleared = false;
                 _data.stages[i].score = 0;
@@ -112,7 +111,7 @@ public class UserDataManager : MonoBehaviour
     public void SaveData()
     {
         string write = JsonUtility.ToJson(_data, true);
-        if(File.Exists(dataPath))
+        if (File.Exists(dataPath))
         {
             using (StreamReader reader = new StreamReader(File.Open(dataPath, FileMode.Open)))
             {

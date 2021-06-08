@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FinalGate : MonoBehaviour
@@ -23,7 +21,7 @@ public class FinalGate : MonoBehaviour
 
     void Update()
     {
-        if(!shown && GameManager.Instance.gates == gatesCount)
+        if (!shown && GameManager.Instance.gates == gatesCount)
         {
             meshRenderer.enabled = true;
             meshCollider.enabled = true;

@@ -1,8 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class MainMenuButton : MonoBehaviour
 {
@@ -22,7 +19,7 @@ public class MainMenuButton : MonoBehaviour
 
     public void OnClick()
     {
-        if(MainMenuManager.Instance.isSelectingEnabled)
+        if (MainMenuManager.Instance.isSelectingEnabled)
         {
             if (buttonType == ButtonTypes.Play)
             {

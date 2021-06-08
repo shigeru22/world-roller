@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 
@@ -37,10 +35,10 @@ public class AudioManager : MonoBehaviour
         bgm = UserDataManager.Instance.data.options.bgmVolume;
         sfx = UserDataManager.Instance.data.options.sfxVolume;
 
-        if(bgm > 0f) mixer.SetFloat("BGM", Mathf.Log(bgm) * 20f);
+        if (bgm > 0f) mixer.SetFloat("BGM", Mathf.Log(bgm) * 20f);
         else mixer.SetFloat("BGM", -80f);
 
-        if(sfx > 0f) mixer.SetFloat("SFX", Mathf.Log(sfx) * 20f);
+        if (sfx > 0f) mixer.SetFloat("SFX", Mathf.Log(sfx) * 20f);
         else mixer.SetFloat("SFX", -80f);
     }
 
@@ -49,14 +47,14 @@ public class AudioManager : MonoBehaviour
         float bgm = UserDataManager.Instance.data.options.bgmVolume;
         float sfx = UserDataManager.Instance.data.options.sfxVolume;
 
-        if(this.bgm != bgm)
+        if (this.bgm != bgm)
         {
             if (bgm > 0f) mixer.SetFloat("BGM", Mathf.Log(bgm) * 20f);
             else mixer.SetFloat("BGM", -80f);
             this.bgm = bgm;
         }
-        
-        if(this.sfx != sfx)
+
+        if (this.sfx != sfx)
         {
             if (sfx > 0f) mixer.SetFloat("SFX", Mathf.Log(sfx) * 20f);
             else mixer.SetFloat("SFX", -80f);

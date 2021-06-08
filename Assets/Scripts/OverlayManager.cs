@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,12 +43,12 @@ public class OverlayManager : MonoBehaviour
     void Update()
     {
         if (InputManager.Instance.pause) TogglePause();
-        if(GameManager.Instance.isCompleted && !resultShown)
+        if (GameManager.Instance.isCompleted && !resultShown)
         {
             ToggleResults();
             resultShown = true;
         }
-        if(GameManager.Instance.isFailed && !resultShown)
+        if (GameManager.Instance.isFailed && !resultShown)
         {
             failedWindow.ShowWindow();
             resultShown = true;
@@ -77,7 +75,7 @@ public class OverlayManager : MonoBehaviour
 
     public void TogglePause()
     {
-        if(!blocked)
+        if (!blocked)
         {
             blocked = true;
             if (!GameManager.Instance.isPaused)
@@ -118,7 +116,7 @@ public class OverlayManager : MonoBehaviour
 
     public void ToggleFinishAnnouncer()
     {
-        if(!announced)
+        if (!announced)
         {
             announcerObject.ToggleFinish();
             announced = true;

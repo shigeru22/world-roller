@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Init : MonoBehaviour
@@ -16,7 +14,7 @@ public class Init : MonoBehaviour
 
     void Update()
     {
-        if(rigid.velocity.sqrMagnitude < 1f)
+        if (rigid.velocity.sqrMagnitude < 1f)
         {
             rigid.AddForce(force);
         }

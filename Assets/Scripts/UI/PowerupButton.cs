@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -20,13 +18,13 @@ public class PowerupButton : MonoBehaviour
 
     void PowerupAction()
     {
-        if(type == Powerup.Button)
+        if (type == Powerup.Button)
         {
             MainMenuManager.Instance.TogglePowerup();
             return;
         }
 
-        if(!locked)
+        if (!locked)
         {
             bool status = false;
 
