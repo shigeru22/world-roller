@@ -107,7 +107,7 @@ public class GameManager : MonoBehaviour
     public float timer { get { return _timer; } }
 
     // world specific
-    public float worldRotation { get { return _rotation * 90f; } }
+    public float worldRotation { get { return _rotation; } }
 
 
     //todo : change isInvuln to isZen
@@ -232,8 +232,16 @@ public class GameManager : MonoBehaviour
     /// <param name="target"></param>
     public void RotateWorld(RotationTargets target)
     {
-        if (target.Equals(RotationTargets.Left)) _rotation--;
-        else if (target.Equals(RotationTargets.Right)) _rotation++;
+        if (target.Equals(RotationTargets.Left))
+        {
+            if (_rotation == 0) _rotation = 4;
+            _rotation--;
+        }
+        else if (target.Equals(RotationTargets.Right))
+        {
+            if (_rotation == 3) _rotation = -1;
+            _rotation++;
+        }
     }
 
     /// <summary>

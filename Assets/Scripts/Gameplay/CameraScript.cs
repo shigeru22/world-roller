@@ -72,7 +72,7 @@ public class CameraScript : MonoBehaviour
                 // test
                 if (InputManager.Instance.left) GameManager.Instance.RotateWorld(RotationTargets.Left);
                 else if (InputManager.Instance.right) GameManager.Instance.RotateWorld(RotationTargets.Right);
-                currentRotation = Quaternion.Slerp(currentRotation, Quaternion.Euler(Vector3.up * GameManager.Instance.worldRotation), 0.05f);
+                currentRotation = Quaternion.Slerp(currentRotation, Quaternion.Euler(Vector3.up * GameManager.Instance.worldRotation * 90f), 0.05f);
                 pivot.transform.rotation = currentRotation;
                 Vector3 temp = currentRotation.eulerAngles;
                 temp.x += rotation.x;

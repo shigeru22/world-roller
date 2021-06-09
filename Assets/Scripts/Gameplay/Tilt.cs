@@ -7,27 +7,26 @@ public class Tilt : MonoBehaviour
     void Update()
     {
         float horizontal, vertical, tilt;
-        int rotation = (int)Mathf.Abs(GameManager.Instance.worldRotation / 90f % 4f);
 
         if (GameManager.Instance.isPlaying)
         {
             if (InputManager.Instance.damp) tilt = 40f;
             else tilt = 20f;
-            if (rotation == 1)
+            if (GameManager.Instance.worldRotation == 1)
             {
-                horizontal = InputManager.Instance.vertical * tilt;
-                vertical = InputManager.Instance.horizontal * tilt;
+                horizontal = -InputManager.Instance.vertical * tilt;
+                vertical = -InputManager.Instance.horizontal * tilt;
             }
-            else if (rotation == 2)
+            else if (GameManager.Instance.worldRotation == 2)
             {
                 horizontal = InputManager.Instance.horizontal * tilt;
                 vertical = -InputManager.Instance.vertical * tilt;
             }
-            else if (rotation == 3)
+            else if (GameManager.Instance.worldRotation == 3)
             {
                 // 90
-                horizontal = -InputManager.Instance.vertical * tilt;
-                vertical = -InputManager.Instance.horizontal * tilt;
+                horizontal = InputManager.Instance.vertical * tilt;
+                vertical = InputManager.Instance.horizontal * tilt;
             }
             else
             {
