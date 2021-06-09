@@ -37,7 +37,11 @@ public class PowerupButton : MonoBehaviour
                     break;
                 case Powerup.Magnet:
                     status = GameManager.Instance.isMagnet;
-                    if (!status) GameManager.Instance.magnetManaget(true);
+                    if (!status)
+                    {
+                        GameManager.Instance.magnetManaget(true);
+                        GameManager.Instance.setMagnetLevel(2);
+                    }
                     else GameManager.Instance.magnetManaget(false);
                     break;
                 case Powerup.Zen:

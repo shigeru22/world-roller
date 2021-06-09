@@ -6,7 +6,6 @@ public class Ball : MonoBehaviour
     public GameObject finalGate;
     public GameObject spawnPoint;
 
-    CapsuleCollider coincollector;
     Rigidbody rigid;
     float delay = 0.0f;
 
@@ -22,23 +21,6 @@ public class Ball : MonoBehaviour
 
         //set coin magnet
         rigid = this.GetComponent<Rigidbody>();
-        coincollector = this.GetComponent<CapsuleCollider>();
-        if (GameManager.Instance.getMagnetLevel() == 0)
-        {
-            coincollector.radius = 1f;
-        }
-        else if (GameManager.Instance.getMagnetLevel() == 1)
-        {
-            coincollector.radius = 2.5f;
-        }
-        else if (GameManager.Instance.getMagnetLevel() == 2)
-        {
-            coincollector.radius = 4.5f;
-        }
-        else if (GameManager.Instance.getMagnetLevel() == 3)
-        {
-            coincollector.radius = 7f;
-        }
 
         //set zenmode
         if (GameManager.Instance.isZen)
@@ -89,46 +71,21 @@ public class Ball : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (GameManager.Instance.isPlaying)
+        if (other.gameObject.CompareTag("Gate"))
         {
-            if (other.gameObject.CompareTag("Collectible"))
-            {
-                Collectibles temp = other.GetComponent<Collectibles>();
-                CollectibleTypes type = temp.type;
+            Gate temp = other.GetComponent<Gate>();
 
-                if (!temp.catched)
-                {
-                    if (type == CollectibleTypes.Coin)
-                    {
-                        GameManager.Instance.AddCoin();
-                        GameManager.Instance.IncreaseScore(100);
-                    }
-                    else if (type == CollectibleTypes.Star)
-                    {
-                        GameManager.Instance.AddStar();
-                        GameManager.Instance.IncreaseScore(1000);
-                    }
-                    else throw new InvalidObjectException($"{gameObject.name} triggered {other.gameObject.name} collectible");
-
-                    temp.CatchObject();
-                }
-            }
-            else if (other.gameObject.CompareTag("Gate"))
+            if (!temp.entered)
             {
-                Gate temp = other.GetComponent<Gate>();
-
-                if (!temp.entered)
-                {
-                    temp.EnterGate();
-                    GameManager.Instance.AddGate();
-                    GameManager.Instance.IncreaseScore(2000);
-                }
+                temp.EnterGate();
+                GameManager.Instance.AddGate();
+                GameManager.Instance.IncreaseScore(2000);
             }
-            else if (other.gameObject.CompareTag("FinalGate"))
-            {
-                AudioManager.Instance.PlaySound(AudioStore.Complete);
-                StartCoroutine(GameManager.Instance.FinishLevel());
-            }
+        }
+        else if (other.gameObject.CompareTag("FinalGate"))
+        {
+            AudioManager.Instance.PlaySound(AudioStore.Complete);
+            StartCoroutine(GameManager.Instance.FinishLevel());
         }
     }
 }

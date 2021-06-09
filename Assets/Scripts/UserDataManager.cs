@@ -15,6 +15,8 @@ public class UserDataManager : MonoBehaviour
     /// </summary>
     public SaveData data { get { return _data; } }
 
+    public bool isLoaded { get; private set; } = false;
+
     private static string dataPath;
 
     void Awake()
@@ -56,26 +58,14 @@ public class UserDataManager : MonoBehaviour
         // load data
         LoadData();
         VerifyInputButtons();
+
+        isLoaded = true;
     }
 
     IEnumerator Start()
     {
         yield return new WaitUntil(() => InputManager.Instance != null && MainMenuManager.Instance != null);
         InputManager.Instance.LoadInputSettings();
-        if (_data.powerups.hyperspeedMode) MainMenuManager.Instance.UnlockHyperspeedMode();
-        if (_data.powerups.magnetMode) MainMenuManager.Instance.UnlockMagnetMode();
-        if (_data.powerups.zenMode) MainMenuManager.Instance.UnlockZenMode();
-        SetStagesData();
-    }
-
-    void SetStagesData()
-    {
-        int len = _data.stages.Length;
-        for (int i = 0; i < len; i++)
-        {
-            MainMenuManager.Instance.SetHighScore(i, _data.stages[i].score);
-            MainMenuManager.Instance.SetStars(i, _data.stages[i].stars);
-        }
     }
 
     void VerifyInputButtons()

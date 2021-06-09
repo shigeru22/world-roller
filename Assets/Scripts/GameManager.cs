@@ -161,7 +161,7 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-        if (_timerStarted)
+        if (_timerStarted && !_zenMode)
         {
             _timer -= Time.deltaTime;
 
@@ -395,10 +395,7 @@ public class GameManager : MonoBehaviour
     {
         StopTimer();
         isPlaying = false;
-        // TODO: add score based on time
-        // _score += "???"
-        // temporary
-        _score = _gates * 2000 + _stars * 1000 + _coins * 100 + (Mathf.FloorToInt(_timer) * 10);
+        if (!_zenMode) _score += Mathf.FloorToInt(_timer) * 10;
 
         // save data
         if (!isSaved)

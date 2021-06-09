@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -45,10 +46,25 @@ public class MainMenuManager : MonoBehaviour
         else instance = this;
     }
 
-    void Start()
+    IEnumerator Start()
     {
+        yield return new WaitUntil(() => UserDataManager.Instance.isLoaded);
+
         selectedStage = 0;
         RunAnimation(string.Empty, 2f);
+
+        // stage data
+        int len = UserDataManager.Instance.data.stages.Length;
+        for (int i = 0; i < len; i++)
+        {
+            SetHighScore(i, UserDataManager.Instance.data.stages[i].score);
+            SetStars(i, UserDataManager.Instance.data.stages[i].stars);
+        }
+
+        // unlocked mods
+        if (UserDataManager.Instance.data.powerups.hyperspeedMode) UnlockHyperspeedMode();
+        if (UserDataManager.Instance.data.powerups.magnetMode) UnlockMagnetMode();
+        if (UserDataManager.Instance.data.powerups.zenMode) UnlockZenMode();
     }
 
     void Update()
