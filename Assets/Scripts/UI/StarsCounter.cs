@@ -8,7 +8,7 @@ public class StarsCounter : MonoBehaviour
 
     void Start()
     {
-        SetEmptyColors();
+        // SetEmptyColors();
     }
 
     void SetEmptyColors()
@@ -21,6 +21,10 @@ public class StarsCounter : MonoBehaviour
         int len = this.stars.Length;
         if (stars > len) stars = len;
 
-        for (int i = 0; i < stars; i++) this.stars[i].color = green;
+        for(int i = 0; i < len; i++)
+        {
+            if (i < stars) this.stars[i].color = green;
+            else this.stars[i].color = Color.gray;
+        }
     }
 }
